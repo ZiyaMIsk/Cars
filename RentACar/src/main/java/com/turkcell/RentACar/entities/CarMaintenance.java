@@ -15,27 +15,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="carMaintenances")
-@Entity
+@Table(name="car_maintenances")
 public class CarMaintenance {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="car_maintenance_id", unique = true)
+	private int carMaintenanceId;
 	
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="returnDate")
+	@Column(name="return_date")
 	private LocalDate returnDate;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="car_id")
-	private Car car;
+	private Car carMaintenanceCar;
+	
 	
 	
 

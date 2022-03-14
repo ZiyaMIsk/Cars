@@ -2,11 +2,8 @@ package com.turkcell.RentACar.business.requests.update;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.lang.Nullable;
-
-import com.turkcell.RentACar.entities.City;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,20 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateRentingRequest {
 	
-	@NotNull
-	private int id;
-	@NotNull
-	private LocalDate rentDate;
-	@NotNull
+	@FutureOrPresent
 	private LocalDate returnDate;
-	@NotNull
-	private double dailyPrice;
-	@NotNull
-	private int customerId;
+	
 	@NotNull
 	private int carId;
+	
 	@NotNull
-	private City returnCity;
+	private int returnCityId;
 	
 
 }

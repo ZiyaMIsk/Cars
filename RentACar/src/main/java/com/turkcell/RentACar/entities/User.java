@@ -13,18 +13,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="users")
-@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "id", unique = true)
+    private int id;
 	
 
     @Column(name = "email", unique = true)

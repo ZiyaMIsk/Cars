@@ -10,10 +10,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.turkcell.RentACar.business.abstracts.CarService;
-import com.turkcell.RentACar.business.dtos.car.CarDto;
+import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.car.ListCarDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.ErrorDataResult;
@@ -81,13 +82,13 @@ public class CarManager implements CarService {
 	}
 		
 	@Override
-	public DataResult<CarDto> getById(int carId) {
+	public DataResult<CarByIdDto> getById(int carId) {
 		if (!checkCarId(carId).isSuccess()) {
-			return new ErrorDataResult<CarDto>(checkCarId(carId).getMessage());
+			return new ErrorDataResult<CarByIdDto>(checkCarId(carId).getMessage());
 		}
 		Car car = this.carDao.getById(carId);
-		CarDto carDto = this.modelMapperService.forDto().map(car, CarDto.class);
-		return new SuccessDataResult<CarDto>(carDto, "Data getted by id");
+		CarByIdDto carDto = this.modelMapperService.forDto().map(car, CarByIdDto.class);
+		return new SuccessDataResult<CarByIdDto>(carDto, "Data getted by id");
 	}
 	
 	private Result checkCarName(String carName){
@@ -141,5 +142,20 @@ public class CarManager implements CarService {
 			return new ErrorDataResult<List<Car>>("There is no car exists in the list!");
 		}
 		return new SuccessResult();
+	}
+
+	@Override
+	public boolean checkIfExistByCarId(int carId) throws BusinessException {
+		if(this.carDao.findByCarId(carId) == null) {
+			throw new BusinessException("The car you wrote id is not exist.");
+		}
+		else{
+			return true;
+		}
+	}
+
+	@Override
+	public Car getByIdForOtherServices(int carId) {
+		return carDao.findByCarId(carId);
 	}
 }

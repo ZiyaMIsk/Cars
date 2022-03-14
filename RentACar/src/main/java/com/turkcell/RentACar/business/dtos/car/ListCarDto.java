@@ -14,10 +14,12 @@ import lombok.NoArgsConstructor;
 public class ListCarDto {
 
 	private int carId;
-	private String carName;
 	private double dailyPrice;
 	private int modelYear;
 	private String description;
 	private String brandName;
 	private List<ListColorDto> colorList;
+//	private List<CarMaintenance> carMaintenance;
+//	private List<RentalCar> rentalCar;
+	
 }

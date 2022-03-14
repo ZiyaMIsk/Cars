@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcell.RentACar.business.abstracts.RentingService;
 import com.turkcell.RentACar.business.dtos.renting.ListRentingDto;
-import com.turkcell.RentACar.business.dtos.renting.RentingDto;
+import com.turkcell.RentACar.business.dtos.renting.RentingByCarIdDto;
+import com.turkcell.RentACar.business.dtos.renting.RentingByIdDto;
 import com.turkcell.RentACar.business.requests.create.CreateRentingRequest;
 import com.turkcell.RentACar.business.requests.delete.DeleteRentingRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateRentingRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
@@ -34,26 +36,31 @@ public class RentingsController {
     }
     @GetMapping("/listallrentals")
     public DataResult<List<ListRentingDto>> listAll() {
-        return this.rentingService.listAll();
+        return this.rentingService.getAll();
     }
-    @PostMapping("/createrental")
-    public Result create(@RequestBody @Valid CreateRentingRequest createRentingRequest){
+    @PostMapping("/createrenting")
+    public Result create(@RequestBody @Valid CreateRentingRequest createRentingRequest) throws BusinessException{
         return this.rentingService.create(createRentingRequest);
     }
-    @DeleteMapping("/deleterental")
-    public Result delete(@RequestBody @Valid DeleteRentingRequest deleteRentingRequest){
+    @DeleteMapping("/deleterenting")
+    public Result delete(@RequestBody @Valid DeleteRentingRequest deleteRentingRequest) throws BusinessException{
         return this.rentingService.delete(deleteRentingRequest);
     }
-    @PutMapping("/updaterental")
-    public Result update(@RequestBody @Valid UpdateRentingRequest updateRentingRequest){
+    @PutMapping("/updaterenting")
+    public Result update(@RequestBody @Valid UpdateRentingRequest updateRentingRequest) throws BusinessException{
         return this.rentingService.update(updateRentingRequest);
     }
 
-    @GetMapping("/getbyrentalid")
-    public DataResult<RentingDto> getById(@RequestParam int rentalId){
-        return this.rentingService.getById(rentalId);
-    }
+
+	@GetMapping("/getrentalcarbycarid/{carId}")
+	public DataResult<List<RentingByCarIdDto>> getRentalCarByCarId(@RequestParam("carId") @Valid int carId) throws BusinessException{
+		return this.rentingService.getRentingByCarId(carId);
+	}
 	
+	@GetMapping("/getrentalcarbyid/{rentalcarid}")
+	public DataResult<RentingByIdDto> getRentalCarById(@RequestParam("rentingId") @Valid int rentingId) throws BusinessException{
+		return this.rentingService.getRentingById(rentingId);
+	}
 	
 	
 }

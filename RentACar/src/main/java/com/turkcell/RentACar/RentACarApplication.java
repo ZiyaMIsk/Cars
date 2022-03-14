@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.ErrorDataResult;
 
 
@@ -38,6 +39,13 @@ public class RentACarApplication {
 			
 		}
 		ErrorDataResult<Object> errorDataResult = new ErrorDataResult<Object>();
+		return errorDataResult;
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
+	public ErrorDataResult<Object> handleBusinessExceptions(BusinessException businessException){
+		ErrorDataResult<Object> errorDataResult = new ErrorDataResult<Object>(businessException.getMessage(),"BusinessException error");
 		return errorDataResult;
 	}
 }

@@ -2,6 +2,8 @@ package com.turkcell.RentACar.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcell.RentACar.business.abstracts.CarService;
-import com.turkcell.RentACar.business.dtos.car.CarDto;
+import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.car.ListCarDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarRequest;
@@ -39,27 +41,27 @@ public class CarsController {
 	}
 	
 	@PostMapping("/create")
-	public Result create(@RequestBody CreateCarRequest createCarRequest){
+	public Result create(@RequestBody @Valid CreateCarRequest createCarRequest){
 		return this.carService.create(createCarRequest);
 	}
 	@PutMapping("/update")
-	public Result update(@RequestBody UpdateCarRequest updateCarRequest){
+	public Result update(@RequestBody @Valid UpdateCarRequest updateCarRequest){
 		return this.carService.update(updateCarRequest);
 	}
 		
 	@DeleteMapping("/deletecar")
-    public Result delete(@RequestBody int carId){
+    public Result delete(@RequestBody @Valid int carId){
 		return this.carService.delete(carId);
     }
 	
 	@GetMapping("/getbyid")
-	public DataResult<CarDto> getById(@RequestParam int carId){
+	public DataResult<CarByIdDto> getById(@RequestParam @Valid int carId){
 		return this.carService.getById(carId);
 	}
 	
 	
 	@GetMapping("/getAllPaged")
-	DataResult<List<ListCarDto>> getAllPaged(int pageNo, int pageSize) {
+	DataResult<List<ListCarDto>> getAllPaged(@RequestParam @Valid int pageNo, int pageSize) {
 		return this.carService.getAllPaged(pageNo, pageSize);
 
 	}
@@ -71,7 +73,7 @@ public class CarsController {
 	}
 
 	@GetMapping("/getAllByDailyPriceLessThanEqual")
-	DataResult<List<ListCarDto>> findByDailyPriceLessThanEqual(double dailyPrice) {
+	DataResult<List<ListCarDto>> findByDailyPriceLessThanEqual(@RequestParam @Valid double dailyPrice) {
 		return this.carService.findByDailyPriceLessThanEqual(dailyPrice);
 
 	}

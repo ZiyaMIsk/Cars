@@ -1,6 +1,7 @@
 package com.turkcell.RentACar.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,8 +26,8 @@ public class Renting {
 	 	
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "id")
-	    private int id;
+	    @Column(name = "renting_id")
+	    private int rentingId;
 	 	
 	    @Column(name = "rent_date")	
 	    private LocalDate rentDate;
@@ -33,24 +35,26 @@ public class Renting {
 	    @Column(name = "return_date")
 	    private LocalDate returnDate;
 	    
-	    @Column(name = "dailyPrice")
-	    private double dailyPrice;
+	    @Column(name = "totalPrice")
+	    private double totalPrice;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "customer_id")
-	    private Customer rentingCustomer;
+	    @JoinColumn(name = "id")
+	    private Customer customer;
 
 	    @ManyToOne
 	    @JoinColumn(name = "car_id")
-	    private Car rentingCar;
+	    private Car rentedCar;
 
 	    @ManyToOne
-	    @JoinColumn(name = "city_id")
+	    @JoinColumn(name = "return_city")
 	    private City returnCity ;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "city_id")
+	    @JoinColumn(name = "rent_city")
 	    private City rentCity;
-	
+	    
+	    @OneToMany(mappedBy="renting")
+		private List<OrderedAdditionalService> orderedAdditionalServices;
 
 }

@@ -2,6 +2,8 @@ package com.turkcell.RentACar.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +54,7 @@ public class BrandsController {
 
     }
 	@GetMapping("/getById")
-	public DataResult<BrandDto> getById(@RequestParam int brandId){
+	public DataResult<BrandDto> getById(@RequestParam @Valid int brandId){
 		return this.brandService.getById(brandId);
 	}	
 }

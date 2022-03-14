@@ -2,6 +2,8 @@ package com.turkcell.RentACar.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,22 +39,22 @@ public class ColorsController {
 	}
 	
 	@PostMapping("/create")
-	public Result create(@RequestBody CreateColorRequest createColorRequest){
+	public Result create(@RequestBody @Valid CreateColorRequest createColorRequest){
 		return this.colorService.create(createColorRequest);
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestBody UpdateColorRequest updateColorRequest){
+	public Result update(@RequestBody @Valid UpdateColorRequest updateColorRequest){
 		return this.colorService.update(updateColorRequest);
 	}
 	
 	@DeleteMapping("/delete")
-    public Result delete(@RequestBody int colorId){
+    public Result delete(@RequestBody @Valid int colorId){
 		return this.colorService.delete(colorId);
     }
 	
 	@GetMapping("/getbyid")
-	public DataResult<ColorDto> getById (@RequestParam int colorId){
+	public DataResult<ColorDto> getById (@RequestParam @Valid int colorId){
 		return this.colorService.getById(colorId);
 	}
 }

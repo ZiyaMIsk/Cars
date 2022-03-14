@@ -11,6 +11,7 @@ import com.turkcell.RentACar.business.dtos.brand.BrandDto;
 import com.turkcell.RentACar.business.dtos.brand.ListBrandDto;
 import com.turkcell.RentACar.business.requests.create.CreateBrandRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateBrandRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.ErrorDataResult;
@@ -111,5 +112,20 @@ public class BrandManager implements BrandService {
 			return new ErrorDataResult<List<Brand>>("There is no brand exists in the list!");
 		}
 		return new SuccessResult();
+	}
+
+	@Override
+	public boolean checkIfExistByBrandId(int brandId) throws BusinessException {
+		
+		if(this.brandDao.findByBrandId(brandId) == null) {
+			
+			throw new BusinessException("Can not brand with this id.");
+	
+		}
+		
+		else {
+			
+			return true;
+		}
 	}
 }

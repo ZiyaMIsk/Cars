@@ -11,6 +11,7 @@ import com.turkcell.RentACar.business.dtos.color.ColorDto;
 import com.turkcell.RentACar.business.dtos.color.ListColorDto;
 import com.turkcell.RentACar.business.requests.create.CreateColorRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateColorRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.ErrorDataResult;
@@ -111,5 +112,16 @@ public class ColorManager implements ColorService{
 			return new ErrorDataResult<List<Color>>("There is no color exists in the list!");
 		}
 		return new SuccessResult();
+	}
+
+	@Override
+	public boolean checkIfExistByColorId(int colorId) throws BusinessException {
+		Color color = this.colorDao.findByColorId(colorId);
+		if(color == null) {
+			throw new BusinessException("Can not find color with this id.");
+		}
+		else {
+			return true;
+		}
 	}
 }

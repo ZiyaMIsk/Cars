@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="car_id")
+	@Column(name="car_id", unique = true)
 	private int carId;
 	
 	@Column(name="car_name")
@@ -53,10 +53,10 @@ public class Car {
 	private List<Color> colorList;	
 	
 	
-	@OneToMany(mappedBy = "car")
+	@OneToMany(mappedBy = "carMaintenanceCar", fetch = FetchType.LAZY)
 	private List<CarMaintenance> carMaintenanceList;
 	
-	@OneToMany(mappedBy = "car")
+	@OneToMany(mappedBy = "rentedCar", fetch = FetchType.LAZY)
     private List<Renting> rentings;
 
 	@Column(name="is_active")

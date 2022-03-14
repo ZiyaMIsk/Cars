@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor	
-public class CarDto {
+public class CarByIdDto {
 	
 	private String carName;
 	private double dailyPrice;

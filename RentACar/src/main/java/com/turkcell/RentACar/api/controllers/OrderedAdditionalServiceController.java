@@ -15,44 +15,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcell.RentACar.business.abstracts.OrderedAdditionalServiceService;
-import com.turkcell.RentACar.business.exceptions.BusinessException;
+import com.turkcell.RentACar.business.dtos.orderedAdditionalService.ListOrderedAdditionalServiceDto;
+import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByIdDto;
+import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByRentingIdDto;
+import com.turkcell.RentACar.business.requests.create.CreateOrderedAdditionalServiceRequest;
+import com.turkcell.RentACar.business.requests.delete.DeleteOrderedAdditionalServiceRequest;
+import com.turkcell.RentACar.business.requests.update.UpdateOrderedAdditionalServiceRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
 @RestController
 @RequestMapping("/api/orderedAdditionalServicesController")
-public class OrderedAdditionalController {
+public class OrderedAdditionalServiceController {
 	  
-		private OrderedAdditionalServiceService orderedAdditionalServiceService;
+		OrderedAdditionalServiceService orderedAdditionalServiceService;
 
 	    @Autowired
-	    public OrderedAdditionalServicesController(OrderedAdditionalServiceService orderedAdditionalServiceService) {
+	    public OrderedAdditionalServiceController (OrderedAdditionalServiceService orderedAdditionalServiceService) {
 	        this.orderedAdditionalServiceService = orderedAdditionalServiceService;
 	    }
 
 	    @GetMapping("/getAll")
-	    DataResult<List<OrderedAdditionalServiceListDto>> getAll(){
+	    DataResult<List<ListOrderedAdditionalServiceDto>> getAll(){
 	        return this.orderedAdditionalServiceService.getAll();
 	    }
 
 	    @PostMapping("/add")
-	    Result add(@RequestBody @Valid CreateOrderedAdditionalServiceRequest createOrderedAdditionalServiceRequest){
+	    Result add(@RequestBody @Valid CreateOrderedAdditionalServiceRequest createOrderedAdditionalServiceRequest) throws BusinessException{
 	        return this.orderedAdditionalServiceService.add(createOrderedAdditionalServiceRequest);
 	    }
 
 	    @GetMapping("/getById")
-	    DataResult<OrderedAdditionalServiceDto> getById(@RequestParam int id){
+	    DataResult<OrderedAdditionalServiceByIdDto> getById(@RequestParam @Valid int id) throws BusinessException{
 	        return this.orderedAdditionalServiceService.getById(id);
 	    }
 
 	    @PutMapping("/update")
-	    Result update(@RequestParam @Valid int id,@RequestBody UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest){
-	        return this.orderedAdditionalServiceService.update(id,updateOrderedAdditionalServiceRequest);
+	    Result update(@RequestBody @Valid UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest) throws BusinessException{
+	        return this.orderedAdditionalServiceService.update(updateOrderedAdditionalServiceRequest);
 	    }
 
 	    @DeleteMapping("/delete")
-	    Result delete(@RequestBody @Valid DeleteOrderedAdditionalServiceRequest deleteOrderedAdditionalServiceRequest){
+	    Result delete(@RequestBody @Valid DeleteOrderedAdditionalServiceRequest deleteOrderedAdditionalServiceRequest) throws BusinessException{
 	        return this.orderedAdditionalServiceService.delete(deleteOrderedAdditionalServiceRequest);
 	    }
-
+	    
+	    @GetMapping("/getallbyrentingid/{rentingid}")
+		public DataResult<List<OrderedAdditionalServiceByRentingIdDto>> getAllByRentalCarId(@RequestParam ("rentingId") int rentingId) throws BusinessException{
+			return this.orderedAdditionalServiceService.getAllByRentingId(rentingId);
+		}
 }
