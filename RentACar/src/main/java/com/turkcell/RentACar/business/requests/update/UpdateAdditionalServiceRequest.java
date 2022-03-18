@@ -20,4 +20,9 @@ public class UpdateAdditionalServiceRequest {
 	@NotNull
 	@Size(min=2)
 	private String additionalServiceName;
+	
+	@NotNull
+	@Positive
+	private double dailyPrice;
+	
 }

@@ -24,7 +24,7 @@ import com.turkcell.RentACar.core.utilites.results.Result;
 
 
 @RestController
-@RequestMapping("/api/corporatecustomers")
+@RequestMapping("/api/corporateCustomers")
 public class CorporateCustomersController {
 	
 	CorporateCustomerService corporateCustomerService;

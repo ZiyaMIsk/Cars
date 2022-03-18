@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcell.RentACar.business.abstracts.IndividualCustomerService;
 import com.turkcell.RentACar.business.dtos.individualCustomer.ListIndividualCustomerDto;
@@ -19,7 +21,8 @@ import com.turkcell.RentACar.business.requests.update.UpdateIndividualCustomerRe
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
-
+@RestController
+@RequestMapping("/api/individualCustomers")
 public class IndividualCustomersController {
 
 	IndividualCustomerService individualCustomerService;

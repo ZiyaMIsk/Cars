@@ -3,13 +3,11 @@ package com.turkcell.RentACar.dataAccess.abstracts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.turkcell.RentACar.entities.Color;
+import com.turkcell.RentACar.entities.User;
 
 @Repository
-public interface ColorDao extends JpaRepository<Color, Integer> {
+public interface UserDao extends JpaRepository<User, Integer> {
+	
+	User getByUserId(int id);
 
-	boolean existsByColorName(String name);
-	
-	Color findByColorId(int id);
-	
 }

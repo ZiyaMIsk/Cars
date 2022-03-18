@@ -18,4 +18,5 @@ public interface RentingDao extends JpaRepository<Renting, Integer>{
 	List<Renting> getRentingByRentedCar_carId(int carId);
 	
 	Renting getByReturnDateAndRentedCar_carId(LocalDate localDate, int carId);
+	
 }

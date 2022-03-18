@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateOrderedAdditionalServiceRequest {
-
-	@Positive
-	@NotNull
-	private int rentingId;
 	
 	@Positive
 	@NotNull
@@ -24,4 +20,8 @@ public class UpdateOrderedAdditionalServiceRequest {
 	@NotNull
 	private int newAdditionalServiceId;
 
+	@Positive
+	@NotNull
+	private int rentingId;
+	
 }

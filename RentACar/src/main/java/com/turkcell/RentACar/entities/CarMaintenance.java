@@ -30,14 +30,11 @@ public class CarMaintenance {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="return_date")
+	@Column(name="car_maintenance_return_date")
 	private LocalDate returnDate;
 	
 	@ManyToOne()
 	@JoinColumn(name="car_id")
 	private Car carMaintenanceCar;
 	
-	
-	
-
 }

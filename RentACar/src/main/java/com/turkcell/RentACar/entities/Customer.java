@@ -35,5 +35,7 @@ public class Customer extends User{
 	    @JsonIgnore
 	    private List<Renting> rentings;
 	
-
+		@OneToMany(mappedBy = "customer")
+		private List<Invoice> invoices;
+		
 }

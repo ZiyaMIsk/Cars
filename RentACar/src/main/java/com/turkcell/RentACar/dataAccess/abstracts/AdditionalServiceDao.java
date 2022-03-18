@@ -7,6 +7,9 @@ import com.turkcell.RentACar.entities.AdditionalService;
 
 @Repository
 public interface AdditionalServiceDao extends JpaRepository<AdditionalService, Integer>{
+	
 	AdditionalService findByAdditionalServiceId(int id);
+	
 	boolean existsByAdditionalServiceName(String name);
+	
 }

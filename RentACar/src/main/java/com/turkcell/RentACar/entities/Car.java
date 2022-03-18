@@ -42,6 +42,9 @@ public class Car {
 	@Column(name="description")
 	private String description;
 	
+	@Column( name = "kilometer_value")
+	private double kilometerValue;
+	
 	@ManyToOne
 	@JoinColumn(name="brand_id")
 	private Brand brand;

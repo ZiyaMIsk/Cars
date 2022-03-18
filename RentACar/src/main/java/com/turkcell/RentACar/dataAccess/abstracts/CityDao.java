@@ -7,5 +7,7 @@ import com.turkcell.RentACar.entities.City;
 
 @Repository
 public interface CityDao  extends JpaRepository<City, Integer>{
+	
 	City findByCityId(int cityId);
+	
 }

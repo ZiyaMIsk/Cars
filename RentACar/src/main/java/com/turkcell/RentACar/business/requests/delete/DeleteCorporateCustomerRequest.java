@@ -1,5 +1,6 @@
 package com.turkcell.RentACar.business.requests.delete;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -12,9 +13,10 @@ import lombok.NoArgsConstructor;
 public class DeleteCorporateCustomerRequest {
 
 	@NotNull
-	private String email;
+	private int id;
 	
 	@NotNull
-	private String password;
-
+	@Email
+	private String email;
+	
 }

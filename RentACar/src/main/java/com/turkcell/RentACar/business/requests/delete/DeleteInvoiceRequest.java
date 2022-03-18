@@ -1,4 +1,4 @@
-package com.turkcell.RentACar.business.requests.update;
+package com.turkcell.RentACar.business.requests.delete;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,12 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBrandRequest {
-
-	@NotNull
-	private int brandId;
+public class DeleteInvoiceRequest {
 	
 	@NotNull
-	private String brandName;
+	private int invoiceId;
 	
 }

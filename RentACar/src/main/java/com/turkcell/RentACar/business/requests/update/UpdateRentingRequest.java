@@ -23,5 +23,7 @@ public class UpdateRentingRequest {
 	@NotNull
 	private int returnCityId;
 	
+	@NotNull
+	private double returnKilometer;	
 
 }

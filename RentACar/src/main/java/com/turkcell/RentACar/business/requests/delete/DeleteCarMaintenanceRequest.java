@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class DeleteCarMaintenanceRequest {
 	
 	@NotNull
-	private int MaintenanceId; 
+	private int carMaintenanceId; 
 
 }

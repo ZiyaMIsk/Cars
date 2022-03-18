@@ -24,7 +24,7 @@ import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
 @RestController
-@RequestMapping("/api/additionalservices")
+@RequestMapping("/api/additionalServices")
 public class AdditionalServicesController {
    
 	private AdditionalServiceService additionalServiceService;

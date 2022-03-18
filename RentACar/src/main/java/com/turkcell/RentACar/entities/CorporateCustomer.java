@@ -1,4 +1,4 @@
-package com.turkcell.RentACar.entities;
+	package com.turkcell.RentACar.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class CorporateCustomer extends Customer{
 	@Column(name = "company_name")
 	private String companyName;
 	
-	@Column(name = "tax_number")
+	@Column(name = "tax_number", unique = true)
 	private String taxNumber;
 	
 	

@@ -1,8 +1,6 @@
 package com.turkcell.RentACar.business.requests.update;
 
-import java.util.List;
-
-import com.turkcell.RentACar.business.dtos.color.ColorIdDto;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +11,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCarRequest {
 	
+	@NotNull
 	private int carId;
+	
+	@NotNull
 	private String carName;
+	
+	@NotNull
 	private double dailyPrice;
-	private int modelYear;
+	
+	@NotNull
 	private String description;
-	private int brandId;
-	private List<ColorIdDto> colorIds;
+	
+	@NotNull
+	private double kilometerValue;
+	
 }

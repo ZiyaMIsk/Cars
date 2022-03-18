@@ -17,7 +17,7 @@ public class UpdateCarMaintenanceRequest {
 	
 
 	@NotNull
-	@Size(min=3)
+	@Size(min=3, max=150)
 	private String description;
 	
 	@NotNull
