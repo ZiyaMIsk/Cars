@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 public class OrderedAdditionalServiceByIdDto {
 	
 	private int orderedAdditionalServiceId;
+	
 	private int rentingId;
+	
 	private int additionalServiceId;
+	
 	private String additionalServiceName;
 
 }

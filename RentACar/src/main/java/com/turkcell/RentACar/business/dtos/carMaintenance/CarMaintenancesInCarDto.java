@@ -15,9 +15,13 @@ import lombok.NoArgsConstructor;
 public class CarMaintenancesInCarDto {
 	
 	private int carMaintenanceId;
+	
 	private String description;
+	
 	private LocalDate returnDate;
+	
 	private String brandName;
+	
 	private List<ListColorDto> colors;
 
 }

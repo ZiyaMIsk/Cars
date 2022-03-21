@@ -19,6 +19,7 @@ import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.car.ListCarDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
@@ -41,16 +42,17 @@ public class CarsController {
 	}
 	
 	@PostMapping("/create")
-	public Result create(@RequestBody @Valid CreateCarRequest createCarRequest){
+	public Result create(@RequestBody @Valid CreateCarRequest createCarRequest) throws BusinessException{
 		return this.carService.create(createCarRequest);
 	}
+	
 	@PutMapping("/update")
-	public Result update(@RequestBody @Valid UpdateCarRequest updateCarRequest){
+	public Result update(@RequestParam("carId") int carId, @RequestBody @Valid UpdateCarRequest updateCarRequest) throws BusinessException{
 		return this.carService.update(updateCarRequest);
 	}
 		
 	@DeleteMapping("/deletecar")
-    public Result delete(@RequestBody @Valid int carId){
+    public Result delete(@RequestParam("carId") int carId){
 		return this.carService.delete(carId);
     }
 	

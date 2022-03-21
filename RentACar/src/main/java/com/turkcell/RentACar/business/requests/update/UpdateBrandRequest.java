@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateBrandRequest {
-
-	@NotNull
-	private int brandId;
 	
 	@NotNull
 	private String brandName;

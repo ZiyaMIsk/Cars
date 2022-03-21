@@ -11,9 +11,9 @@ import com.turkcell.RentACar.entities.Renting;
 @Repository
 public interface RentingDao extends JpaRepository<Renting, Integer>{
 	
-	List<Renting> findAllByCustomerId(int customerId);
+
 	
-	Renting findByRentingId(int rentalId);
+	Renting findByRentingId(int rentingId);
 	
 	List<Renting> getRentingByRentedCar_carId(int carId);
 	

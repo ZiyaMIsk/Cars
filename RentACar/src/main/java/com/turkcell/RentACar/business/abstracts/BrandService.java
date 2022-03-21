@@ -16,11 +16,12 @@ public interface BrandService {
 	
 	Result create(CreateBrandRequest createBrandRequest);
 	
-	Result update(UpdateBrandRequest updateBrandRequest);
+	Result update(int id, UpdateBrandRequest updateBrandRequest);
 	
 	DataResult<BrandDto> getById(int brandId);
 	
 	Result delete(int brandId);
 	
 	boolean checkIfExistByBrandId(int brandId) throws BusinessException;
+	
 }

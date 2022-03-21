@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 public class ListBrandDto {
 	
 	private int brandId;
+	
 	private String brandName;
+	
 	private List<ListCarDto> cars;
+
 }

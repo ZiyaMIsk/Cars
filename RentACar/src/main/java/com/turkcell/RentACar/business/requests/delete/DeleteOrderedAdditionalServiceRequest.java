@@ -11,11 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteOrderedAdditionalServiceRequest {
-	
-	@Positive
-	@NotNull
-	private int orderedAdditionalServiceId;
-	
+		
 	@Positive
 	@NotNull
 	private int rentingId;

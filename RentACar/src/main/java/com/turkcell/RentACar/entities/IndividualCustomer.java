@@ -2,8 +2,8 @@ package com.turkcell.RentACar.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+/*import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;*/
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class IndividualCustomer extends Customer{
 	
-	//@Id
+	/*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "individualCustomerId")
+    private int individualCustomerId;*/
 	
 	 @Column(name = "first_name")
 	private String firstName;

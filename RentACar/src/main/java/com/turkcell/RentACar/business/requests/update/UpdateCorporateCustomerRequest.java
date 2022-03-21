@@ -13,9 +13,6 @@ import lombok.NoArgsConstructor;
 public class UpdateCorporateCustomerRequest {
 
 	@NotNull
-	private int id;
-	
-	@NotNull
 	@Email
 	private String email;
 	

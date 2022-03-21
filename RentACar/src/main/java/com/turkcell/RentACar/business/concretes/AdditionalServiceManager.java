@@ -10,7 +10,6 @@ import com.turkcell.RentACar.business.abstracts.AdditionalServiceService;
 import com.turkcell.RentACar.business.dtos.additionalService.AdditionalServiceDto;
 import com.turkcell.RentACar.business.dtos.additionalService.ListAdditionalServiceDto;
 import com.turkcell.RentACar.business.requests.create.CreateAdditionalServiceRequest;
-import com.turkcell.RentACar.business.requests.delete.DeleteAdditionalServiceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateAdditionalServiceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
@@ -65,23 +64,25 @@ public class AdditionalServiceManager  implements AdditionalServiceService {
     }
 
     @Override
-    public Result update (UpdateAdditionalServiceRequest updateAdditionalServiceRequest){
+    public Result update(int id, UpdateAdditionalServiceRequest updateAdditionalServiceRequest){
             
     	checkAdditionalServiceId(updateAdditionalServiceRequest.getAdditionalServiceId());
     	checkAdditionalServiceName(updateAdditionalServiceRequest.getAdditionalServiceName());
+    	
         	
     	AdditionalService additionalService = this.modelMapperService.forRequest().map(updateAdditionalServiceRequest, AdditionalService.class);     
     	this.additionalServiceDao.save(additionalService);
-            
+    	additionalService.setAdditionalServiceDailyPrice(updateAdditionalServiceRequest.getDailyPrice());   
+    	
     	return new SuccessResult("Additional Service updated.");
     }
 
     @Override
-    public Result delete (DeleteAdditionalServiceRequest deleteAdditionalServiceRequest){
+    public Result delete(int id){
             
-    	checkAdditionalServiceId(deleteAdditionalServiceRequest.getAdditionalServiceId());
+    	checkAdditionalServiceId(id);
             
-       	this.additionalServiceDao.deleteById(deleteAdditionalServiceRequest.getAdditionalServiceId());
+       	this.additionalServiceDao.deleteById(id);
        
        	return new SuccessResult("Additional Service deleted.");
     
@@ -95,6 +96,7 @@ public class AdditionalServiceManager  implements AdditionalServiceService {
     	
     	AdditionalService additionalService = this.additionalServiceDao.getById(additionalServiceId);
         AdditionalServiceDto additionalServiceDto = this.modelMapperService.forDto().map(additionalService,AdditionalServiceDto.class);
+        
         
         return new SuccessDataResult<AdditionalServiceDto>(additionalServiceDto,"Additional Service found.");
     

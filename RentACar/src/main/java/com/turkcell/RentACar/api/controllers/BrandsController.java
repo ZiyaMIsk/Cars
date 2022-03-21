@@ -44,17 +44,17 @@ public class BrandsController {
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestBody UpdateBrandRequest updateBrandRequest){
-		return this.brandService.update(updateBrandRequest);
+	public Result update(@RequestParam("brandId") int brandId, @RequestBody UpdateBrandRequest updateBrandRequest){
+		return this.brandService.update(brandId, updateBrandRequest);
 	}
 	
 	@DeleteMapping("/delete")
-    public Result delete(@RequestBody int brandId){
+    public Result delete(@RequestParam("brandId") int brandId){
 		return this.brandService.delete(brandId);
 
     }
 	@GetMapping("/getById")
-	public DataResult<BrandDto> getById(@RequestParam @Valid int brandId){
+	public DataResult<BrandDto> getById(@RequestParam("brandId") @Valid int brandId){
 		return this.brandService.getById(brandId);
 	}	
 }

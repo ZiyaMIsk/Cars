@@ -25,17 +25,18 @@ public class City {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "city_id")
     private int cityId;
 	
 	@Column(name = "city_name")
 	private String cityName;
 	
+	@OneToMany(mappedBy = "rentCity")
+    @JsonIgnore
+    private List<Renting> returnRentings;
+	
 	@OneToMany(mappedBy = "returnCity")
     @JsonIgnore
     private List<Renting> rentRentings;
 	
-	@OneToMany(mappedBy = "rentCity")
-    @JsonIgnore
-    private List<Renting> returnRentings;
 }

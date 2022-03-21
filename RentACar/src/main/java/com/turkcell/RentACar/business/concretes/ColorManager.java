@@ -57,7 +57,7 @@ public class ColorManager implements ColorService{
 	}
 	
 	@Override
-	public Result update(UpdateColorRequest updateColorRequest){
+	public Result update(int id, UpdateColorRequest updateColorRequest){
 		if (!checkColorId(updateColorRequest.getColorId()).isSuccess()) {
 			return new ErrorResult(checkColorId(updateColorRequest.getColorId()).getMessage());
 		}
@@ -124,4 +124,6 @@ public class ColorManager implements ColorService{
 			return true;
 		}
 	}
+
+	
 }

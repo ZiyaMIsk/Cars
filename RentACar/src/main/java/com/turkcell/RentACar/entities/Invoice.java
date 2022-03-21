@@ -29,7 +29,7 @@ public class Invoice {
 	private int invoiceId;
 	
 	@Column(name= "invoice_no")
-	private long invoiceNo;
+	private String invoiceNo;
 	
 	@Column(name= "create_date")
 	private LocalDate createDate;

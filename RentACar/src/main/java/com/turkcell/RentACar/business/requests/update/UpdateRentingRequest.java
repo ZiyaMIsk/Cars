@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateRentingRequest {
 	
+	@NotNull
 	@FutureOrPresent
 	private LocalDate returnDate;
 	

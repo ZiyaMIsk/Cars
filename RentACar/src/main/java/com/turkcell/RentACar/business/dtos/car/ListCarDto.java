@@ -22,4 +22,6 @@ public class ListCarDto {
 //	private List<CarMaintenance> carMaintenance;
 //	private List<RentalCar> rentalCar;
 	
+	private double kilometerValue;
+	
 }

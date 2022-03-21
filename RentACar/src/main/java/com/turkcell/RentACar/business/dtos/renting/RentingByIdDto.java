@@ -13,11 +13,25 @@ import lombok.NoArgsConstructor;
 public class RentingByIdDto {
 	
 	private int rentingId;
+	
 	private LocalDate rentDate;
+	
 	private LocalDate returnDate;
+	
 	private int carId;
+	
 	private int customerId;
+	
 	private List<String> additionalServiceName;
+	
+	private double startingKilometerValue;
+	
+	private double returnKilometerValue;
+	    
+   	private int rentCityId;
+		
+   	private int returnCityId;
+	
 	private double totalDailyPrice;
 
 

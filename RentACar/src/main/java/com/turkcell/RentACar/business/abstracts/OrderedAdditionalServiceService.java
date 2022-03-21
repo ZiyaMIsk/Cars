@@ -6,7 +6,6 @@ import com.turkcell.RentACar.business.dtos.orderedAdditionalService.ListOrderedA
 import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByIdDto;
 import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByRentingIdDto;
 import com.turkcell.RentACar.business.requests.create.CreateOrderedAdditionalServiceRequest;
-import com.turkcell.RentACar.business.requests.delete.DeleteOrderedAdditionalServiceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateOrderedAdditionalServiceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
@@ -20,9 +19,12 @@ public interface OrderedAdditionalServiceService {
 	
 	Result add(CreateOrderedAdditionalServiceRequest createOrderedAdditionalServiceRequest) throws BusinessException;
 
-	Result delete(DeleteOrderedAdditionalServiceRequest deleteOrderedAdditionalServiceRequest) throws BusinessException;
+	Result delete(int id) throws BusinessException;
 
-	Result update(UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest) throws BusinessException;
+	Result update(int id, UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest) throws BusinessException;
 
 	DataResult <List<OrderedAdditionalServiceByRentingIdDto>> getAllByRentingId(int rentingId) throws BusinessException;
+
+	
+	
 }

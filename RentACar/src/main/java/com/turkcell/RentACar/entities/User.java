@@ -23,8 +23,8 @@ public class User {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
-    private int id;
+    @Column(name = "user_id", unique = true)
+    private int userId;
 	
 
     @Column(name = "email", unique = true)

@@ -46,20 +46,20 @@ public class Renting {
 	    private double returnKilometer;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "id")
-	    private Customer customer;
+	    @JoinColumn(name = "user_id")
+	    private Customer customerRenting;
 	    
 	    @ManyToOne
 	    @JoinColumn(name = "car_id")
 	    private Car rentedCar;
 
 	    @ManyToOne
-	    @JoinColumn(name = "return_city_id")
-	    private City returnCity ;
-	    
-	    @ManyToOne
 	    @JoinColumn(name = "rent_city_id")
 	    private City rentCity;
+	    
+	    @ManyToOne
+	    @JoinColumn(name = "return_city_id")
+	    private City returnCity ;
 	    
 	    @OneToMany(mappedBy="renting")
 		private List<OrderedAdditionalService> orderedAdditionalServices;

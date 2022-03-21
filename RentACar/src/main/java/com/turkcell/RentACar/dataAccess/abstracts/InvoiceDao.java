@@ -13,12 +13,12 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer>{
 
 	Invoice getByInvoiceId(int id);
 	
-	List<Invoice> getByCustomer_customerId(int id);
+	List<Invoice> getByCustomer_UserId(int id);
 	
 	List<Invoice> findByCreateDateBetween(LocalDate startDate, LocalDate finishDate);
 	
 	boolean existsByInvoiceNo(String invoiceNo);
 	
-	Invoice getByRentalCar_rentalCarId(int id);
+	Invoice getByRenting_rentingId(int id);
 	
 }

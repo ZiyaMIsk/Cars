@@ -17,7 +17,7 @@ public interface CarMaintenanceService {
 	
 	Result create(CreateCarMaintenanceRequest createCarMaintenanceRequest) throws BusinessException;
 	
-	Result update(UpdateCarMaintenanceRequest updateCarMaintenanceRequest) throws BusinessException;
+	Result update(int id, UpdateCarMaintenanceRequest updateCarMaintenanceRequest) throws BusinessException;
 	
 	Result delete(int carMaintenanceId);
 	

@@ -26,4 +26,11 @@ public class UpdateCarRequest {
 	@NotNull
 	private double kilometerValue;
 	
+	@NotNull
+	
+	private int brandId;
+	
+	@NotNull
+	private int colorId;
+	
 }

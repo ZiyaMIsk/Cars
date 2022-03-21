@@ -19,7 +19,6 @@ import com.turkcell.RentACar.business.dtos.renting.ListRentingDto;
 import com.turkcell.RentACar.business.dtos.renting.RentingByCarIdDto;
 import com.turkcell.RentACar.business.dtos.renting.RentingByIdDto;
 import com.turkcell.RentACar.business.requests.create.CreateRentingRequest;
-import com.turkcell.RentACar.business.requests.delete.DeleteRentingRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateRentingRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
@@ -28,27 +27,32 @@ import com.turkcell.RentACar.core.utilites.results.Result;
 @RestController
 @RequestMapping("/api/rentings")
 public class RentingsController {
+	
 	private RentingService rentingService;
 
     @Autowired
     public RentingsController(RentingService rentingService){
         this.rentingService = rentingService;
     }
-    @GetMapping("/listallrentals")
+    
+    @GetMapping("/listallrentings")
     public DataResult<List<ListRentingDto>> listAll() {
         return this.rentingService.getAll();
     }
+    
     @PostMapping("/createrenting")
     public Result create(@RequestBody @Valid CreateRentingRequest createRentingRequest) throws BusinessException{
         return this.rentingService.create(createRentingRequest);
     }
+    
     @DeleteMapping("/deleterenting")
-    public Result delete(@RequestBody @Valid DeleteRentingRequest deleteRentingRequest) throws BusinessException{
-        return this.rentingService.delete(deleteRentingRequest);
+    public Result delete(@RequestParam("rentingId") int id) throws BusinessException{
+        return this.rentingService.delete(id);
     }
+    
     @PutMapping("/updaterenting")
-    public Result update(@RequestBody @Valid UpdateRentingRequest updateRentingRequest) throws BusinessException{
-        return this.rentingService.update(updateRentingRequest);
+    public Result update(@RequestParam("rentingId") int id, @RequestBody @Valid UpdateRentingRequest updateRentingRequest) throws BusinessException{
+        return this.rentingService.update(id, updateRentingRequest);
     }
 
 

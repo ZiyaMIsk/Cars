@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BrandDto {
 	
+	private int brandId;
+	
 	private String brandName;
+	
 	private List<ListCarDto> cars;
+	
 }

@@ -44,12 +44,12 @@ public class ColorsController {
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestBody @Valid UpdateColorRequest updateColorRequest){
-		return this.colorService.update(updateColorRequest);
+	public Result update(@RequestParam("colorId") int colorId, @RequestBody @Valid UpdateColorRequest updateColorRequest){
+		return this.colorService.update(colorId, updateColorRequest);
 	}
 	
 	@DeleteMapping("/delete")
-    public Result delete(@RequestBody @Valid int colorId){
+    public Result delete(@RequestParam("colorId") int colorId){
 		return this.colorService.delete(colorId);
     }
 	

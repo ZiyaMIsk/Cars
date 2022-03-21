@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name="cars")
 @Entity
 public class Car {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="car_id", unique = true)
@@ -49,11 +48,9 @@ public class Car {
 	@JoinColumn(name="brand_id")
 	private Brand brand;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name="car_colors",
-	joinColumns = @JoinColumn(name="car_id"),
-	inverseJoinColumns = @JoinColumn(name="color_id"))
-	private List<Color> colorList;	
+	@ManyToOne
+	@JoinColumn(name="color_id")
+	private Color color;	
 	
 	
 	@OneToMany(mappedBy = "carMaintenanceCar", fetch = FetchType.LAZY)
@@ -64,4 +61,8 @@ public class Car {
 
 	@Column(name="is_active")
     private boolean isActive = true;
+	
+	@OneToMany(mappedBy = "car")
+	private List<CarCrush> carAccidents;
+	
 }

@@ -27,10 +27,6 @@ public class CreateRentingRequest {
 	
 	@NotNull
 	@Positive
-	private double dailyPrice;
-	
-	@NotNull
-	@Positive
 	private  int customerId;
 	
 	@NotNull
@@ -38,11 +34,9 @@ public class CreateRentingRequest {
 	private int carId;
 	
 	@NotNull
-	@Positive
 	private City returnCity;
 	
 	@NotNull
-	@Positive
 	private City rentCity;
 	
 

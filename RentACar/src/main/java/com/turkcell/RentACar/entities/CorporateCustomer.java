@@ -2,8 +2,9 @@
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.PrimaryKeyJoinColumn;
+/*import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;*/
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -16,15 +17,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-//@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "customer_id")
+@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "customer_id")
 @Table(name = "corporate_customers")
 @EqualsAndHashCode(callSuper = false)
 public class CorporateCustomer extends Customer{
 	
-	//@Id
+	/*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "corporateCustomerId")
+    private int corporateCustomerId;*/
 	
 	@Column(name = "company_name")
 	private String companyName;

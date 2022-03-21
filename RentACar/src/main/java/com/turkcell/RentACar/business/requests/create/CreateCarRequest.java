@@ -17,6 +17,7 @@ public class CreateCarRequest {
 	private double dailyPrice;
 	private int modelYear;
 	private String description;
+	private double kilometerValue;
 	private int brandId;
 	private List<ColorIdDto> colorIds;
 }

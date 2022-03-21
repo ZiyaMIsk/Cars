@@ -18,7 +18,6 @@ import com.turkcell.RentACar.business.abstracts.AdditionalServiceService;
 import com.turkcell.RentACar.business.dtos.additionalService.AdditionalServiceDto;
 import com.turkcell.RentACar.business.dtos.additionalService.ListAdditionalServiceDto;
 import com.turkcell.RentACar.business.requests.create.CreateAdditionalServiceRequest;
-import com.turkcell.RentACar.business.requests.delete.DeleteAdditionalServiceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateAdditionalServiceRequest;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
@@ -45,17 +44,17 @@ public class AdditionalServicesController {
     }
     
     @DeleteMapping("/deleteadditionalservice")
-    public Result delete(@RequestBody @Valid DeleteAdditionalServiceRequest deleteAdditionalServiceRequest){
-        return this.additionalServiceService.delete(deleteAdditionalServiceRequest);
+    public Result delete(@RequestParam("additionalServiceId") int id){
+        return this.additionalServiceService.delete(id);
     }
     
     @PutMapping("/updateadditionalservice")
-    public Result update(@RequestBody @Valid UpdateAdditionalServiceRequest updateAdditionalServiceRequest){
-        return this.additionalServiceService.update(updateAdditionalServiceRequest);
+    public Result update(@RequestParam("additionalServiceId") int id, @RequestBody @Valid UpdateAdditionalServiceRequest updateAdditionalServiceRequest){
+        return this.additionalServiceService.update(id, updateAdditionalServiceRequest);
     }
 
     @GetMapping("/getbyadditionalserviceid")
-    public DataResult<AdditionalServiceDto> getById(@RequestParam @Valid int additionalServiceId){
+    public DataResult<AdditionalServiceDto> getById(@RequestParam("additionalServiceId") @Valid int additionalServiceId){
         return this.additionalServiceService.getById(additionalServiceId);
     }
 

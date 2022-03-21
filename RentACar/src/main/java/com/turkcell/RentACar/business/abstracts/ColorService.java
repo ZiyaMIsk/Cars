@@ -13,10 +13,15 @@ import com.turkcell.RentACar.core.utilites.results.Result;
 public interface ColorService {
 	
 	DataResult<List<ListColorDto>> listAll();
+
 	Result create(CreateColorRequest createColorRequest);
+	
 	Result delete(int colorId);
-	Result update(UpdateColorRequest updateColorRequest);
+	
+	Result update(int colorId, UpdateColorRequest updateColorRequest);
+	
 	DataResult<ColorDto> getById(int colorId);
+	
 	boolean checkIfExistByColorId(int colorId) throws BusinessException;
 
 }

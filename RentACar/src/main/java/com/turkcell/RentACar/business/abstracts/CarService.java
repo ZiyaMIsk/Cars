@@ -14,13 +14,25 @@ import com.turkcell.RentACar.entities.Car;
 public interface CarService {
 	
 	DataResult<List<ListCarDto>> listAll();
-	Result create(CreateCarRequest createCarRequest);
-	Result update(UpdateCarRequest updateCarRequest);
+	
+	Result create(CreateCarRequest createCarRequest) throws BusinessException;
+	
+	Result update(UpdateCarRequest updateCarRequest) throws BusinessException;
+	
 	Result delete(int carId);
+	
 	DataResult<CarByIdDto> getById(int carId);
+	
 	DataResult<List<ListCarDto>> getAllPaged(int pageNo, int pageSize);
+	
 	DataResult<List<ListCarDto>> getAllSorted();
+	
 	DataResult<List<ListCarDto>> findByDailyPriceLessThanEqual(double dailyPrice);
+	
 	boolean checkIfExistByCarId(int carId) throws BusinessException;
+	
 	public Car getByIdForOtherServices(int carId);
+	
+	void toSetCarKilometerValue(int carId, long kilometerValue);
+	
 }

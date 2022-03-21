@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 public class ListColorDto {
 	
 	private int colorId;
+	
 	private String colorName;
+	
 }

@@ -19,7 +19,6 @@ import com.turkcell.RentACar.business.dtos.orderedAdditionalService.ListOrderedA
 import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByIdDto;
 import com.turkcell.RentACar.business.dtos.orderedAdditionalService.OrderedAdditionalServiceByRentingIdDto;
 import com.turkcell.RentACar.business.requests.create.CreateOrderedAdditionalServiceRequest;
-import com.turkcell.RentACar.business.requests.delete.DeleteOrderedAdditionalServiceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateOrderedAdditionalServiceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
@@ -52,13 +51,13 @@ public class OrderedAdditionalServiceController {
 	    }
 
 	    @PutMapping("/update")
-	    Result update(@RequestBody @Valid UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest) throws BusinessException{
-	        return this.orderedAdditionalServiceService.update(updateOrderedAdditionalServiceRequest);
+	    Result update(@RequestParam("orderedAdditionalServiceId") int id, @RequestBody @Valid UpdateOrderedAdditionalServiceRequest updateOrderedAdditionalServiceRequest) throws BusinessException{
+	        return this.orderedAdditionalServiceService.update(id, updateOrderedAdditionalServiceRequest);
 	    }
 
 	    @DeleteMapping("/delete")
-	    Result delete(@RequestBody @Valid DeleteOrderedAdditionalServiceRequest deleteOrderedAdditionalServiceRequest) throws BusinessException{
-	        return this.orderedAdditionalServiceService.delete(deleteOrderedAdditionalServiceRequest);
+	    Result delete(@RequestParam("orderedAdditionalServiceId") int id) throws BusinessException{
+	        return this.orderedAdditionalServiceService.delete(id);
 	    }
 	    
 	    @GetMapping("/getallbyrentingid/{rentingid}")

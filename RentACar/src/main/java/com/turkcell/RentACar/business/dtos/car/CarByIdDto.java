@@ -13,10 +13,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor	
 public class CarByIdDto {
 	
+	private int carId;
+	
 	private String carName;
+	
 	private double dailyPrice;
+	
 	private int modelYear;
+	
 	private String description;
+	
 	private String brandName;
+	
 	private List<ListColorDto> colors;
+	
+	private double kilometerValue;
+	
 }

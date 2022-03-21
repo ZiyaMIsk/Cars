@@ -9,9 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.turkcell.RentACar.business.abstracts.BrandService;
 import com.turkcell.RentACar.business.abstracts.CarService;
+import com.turkcell.RentACar.business.abstracts.ColorService;
+import com.turkcell.RentACar.business.dtos.brand.BrandDto;
 import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.car.ListCarDto;
+import com.turkcell.RentACar.business.dtos.color.ColorDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
@@ -30,6 +34,8 @@ public class CarManager implements CarService {
 	
 	private CarDao carDao;
 	private ModelMapperService modelMapperService;
+	private BrandService brandService;
+	private ColorService colorService;
 	
 	@Autowired
 	public CarManager(CarDao carDao, ModelMapperService modelMapperService) {
@@ -39,34 +45,43 @@ public class CarManager implements CarService {
 	
 	@Override
 	public DataResult<List<ListCarDto>> listAll() {
+		
 		List<Car> cars = this.carDao.findAll();
+		
 		if (!checkIfCarListEmpty(cars).isSuccess()) {
 			return new ErrorDataResult<List<ListCarDto>>(checkIfCarListEmpty(cars).getMessage());
+		
 		}
-		List<ListCarDto> listCarDto = cars.stream()
-				.map(car -> this.modelMapperService.forDto().map(car, ListCarDto.class)).collect(Collectors.toList());
+		
+		List<ListCarDto> listCarDto = cars.stream().map(car -> this.modelMapperService.forDto().map(car, ListCarDto.class)).collect(Collectors.toList());
+		
 		return new SuccessDataResult<List<ListCarDto>>(listCarDto, "Data listed");
+	
 	}
 	
 	@Override
-	public Result create(CreateCarRequest createCarRequest) {
+	public Result create(CreateCarRequest createCarRequest) throws BusinessException {
 		Car car = this.modelMapperService.forRequest().map(createCarRequest, Car.class);
-		if (!checkCarName(car.getCarName()).isSuccess()) {
-			return new ErrorResult(checkCarName(car.getCarName()).getMessage());
-		}
+		
+		checkCarName(car.getCarName());
+		checkIfBrandExists(car.getBrand().getBrandId());
+		checkIfColorExists(car.getColor().getColorId());
 		this.carDao.save(car);
+		
 		return new SuccessDataResult<CreateCarRequest>(createCarRequest, "Data added : " + car.getCarName());
 	}
 	
 	@Override
-	public Result update(UpdateCarRequest updateCarRequest) {
-		if (!checkCarId(updateCarRequest.getCarId()).isSuccess()) {
-			return new ErrorResult(checkCarId(updateCarRequest.getCarId()).getMessage());
-		}
-		if (!checkCarName(updateCarRequest.getCarName()).isSuccess()) {
-			return new ErrorResult(checkCarName(updateCarRequest.getCarName()).getMessage());
-		}
+	public Result update(UpdateCarRequest updateCarRequest) throws BusinessException {
+
 		Car car = this.modelMapperService.forRequest().map(updateCarRequest, Car.class);
+		
+		checkCarId(updateCarRequest.getCarId());
+		checkCarName(updateCarRequest.getCarName());
+		checkIfBrandExists(car.getBrand().getBrandId());		
+		checkIfColorExists(car.getColor().getColorId());
+		
+		
 		this.carDao.save(car);
 		return new SuccessDataResult<UpdateCarRequest>(updateCarRequest, "Data updated to: " + car.getCarName());
 	}
@@ -154,8 +169,35 @@ public class CarManager implements CarService {
 		}
 	}
 
+
+	private boolean checkIfBrandExists(int id) throws BusinessException {
+		
+		DataResult<BrandDto> result = this.brandService.getById(id);
+		
+		if (!result.isSuccess()) {
+			throw new BusinessException("Cannot find a brand with this Id.");
+		}
+		return true;
+	}
+
+	private boolean checkIfColorExists(int colorId) throws BusinessException{
+		
+		DataResult<ColorDto> result = this.colorService.getById(colorId);
+		
+		if (!result.isSuccess()) {
+			throw new BusinessException("Cannot find a color with this Id..");
+		}
+		return true;
+	}
+	
 	@Override
 	public Car getByIdForOtherServices(int carId) {
 		return carDao.findByCarId(carId);
+	}
+
+	@Override
+	public void toSetCarKilometerValue(int carId, long kilometerValue) {
+		// TODO Auto-generated method stub
+		
 	}
 }
