@@ -66,8 +66,7 @@ public class InvoiceManager implements InvoiceService {
 		
 		Customer c = this.modelMapperService.forDto().map(customer, Customer.class);
 		
-		invoice.setCustomer(c);
-		
+		invoice.setCustomer(c);		
 		checkIfInvoiceNoExists(invoice.getInvoiceNo());
 		
 		idCorrectionForAdd(invoice, createInvoiceRequest);
