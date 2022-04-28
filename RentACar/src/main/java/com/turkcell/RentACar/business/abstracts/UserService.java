@@ -11,7 +11,5 @@ public interface UserService {
 	DataResult<UserDto> getById(int userId);
 
 	Result update(int id, UpdateUserRequest updateUserRequest) throws BusinessException;
-	
-	public boolean checkIfNotExistByEmail(String email);
 
 }

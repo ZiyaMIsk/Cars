@@ -64,5 +64,12 @@ public class Car {
 	
 	@OneToMany(mappedBy = "car")
 	private List<CarCrush> carAccidents;
+
+	@Column( name = "car_maintenance_status")
+	public boolean isCarMaintenanceStatus;
+
+	@Column( name = "renting_status")
+	public boolean isRentingStatus;
+	
 	
 }

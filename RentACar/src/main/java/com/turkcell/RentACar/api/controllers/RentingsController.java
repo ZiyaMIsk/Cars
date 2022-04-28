@@ -61,7 +61,7 @@ public class RentingsController {
 		return this.rentingService.getRentingByCarId(carId);
 	}
 	
-	@GetMapping("/getrentalcarbyid/{rentalcarid}")
+	@GetMapping("/getrentalcarbyid/{rentingId}")
 	public DataResult<RentingByIdDto> getRentalCarById(@RequestParam("rentingId") @Valid int rentingId) throws BusinessException{
 		return this.rentingService.getRentingById(rentingId);
 	}

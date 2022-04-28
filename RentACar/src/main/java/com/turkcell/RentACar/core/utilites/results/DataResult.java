@@ -14,7 +14,7 @@ public class DataResult<T> extends Result {
 	}
 
 	public T getData() {
-		return data;
+		return this.data;
 	}
 	
 

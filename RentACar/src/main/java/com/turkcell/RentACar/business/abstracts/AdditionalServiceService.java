@@ -13,15 +13,15 @@ import com.turkcell.RentACar.entities.AdditionalService;
 
 public interface AdditionalServiceService {
 	
-	DataResult<List<ListAdditionalServiceDto>> listAll();
+	DataResult<List<ListAdditionalServiceDto>> listAll() throws BusinessException;
     
-	Result create(CreateAdditionalServiceRequest createAdditionalServiceRequest);
+	Result create(CreateAdditionalServiceRequest createAdditionalServiceRequest) throws BusinessException;
     
-	Result update(int id, UpdateAdditionalServiceRequest updateAdditionalServiceRequest);
+	Result update(int id, UpdateAdditionalServiceRequest updateAdditionalServiceRequest) throws BusinessException;
     
-	Result delete(int id);
+	Result delete(int id) throws BusinessException;
     
-	DataResult<AdditionalServiceDto> getById(int additionalServiceId);
+	DataResult<AdditionalServiceDto> getById(int additionalServiceId) throws BusinessException;
     
 	public boolean checkIfExistById(int additionalServiceId) throws BusinessException;
 	

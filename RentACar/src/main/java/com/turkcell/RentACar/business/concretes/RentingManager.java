@@ -224,7 +224,7 @@ private boolean checkIfCarMaintenanceExists(Renting renting) throws BusinessExce
 	
 	private void checkIfCustomerExists(int customerId) throws BusinessException {
 		
-		if(this.customerService.getById(customerId)==null) {
+		if(this.customerService.getByCustomerId(customerId)==null) {
 			throw new BusinessException("The customer with this id does not exist..");
 		}
 		
@@ -246,7 +246,7 @@ private boolean checkIfCarExists(int id) throws BusinessException{
 
 	private Customer customerCorrection(int customerId) throws BusinessException{
 		
-		CustomerDto getCustomerByIdDto = this.customerService.getById(customerId).getData();
+		CustomerDto getCustomerByIdDto = this.customerService.getByCustomerId(customerId).getData();
 		
 		Customer customer = this.modelMapperService.forDto().map(getCustomerByIdDto, Customer.class);
 		
@@ -272,6 +272,14 @@ private boolean checkIfCarExists(int id) throws BusinessException{
         
     		return totalPrice;
     
+	}
+
+
+
+	@Override
+	public void totalPriceCalculateAfterAddAdditionalService(int rentalCarId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

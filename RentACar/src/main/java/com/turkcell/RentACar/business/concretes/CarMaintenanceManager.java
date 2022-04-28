@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import com.turkcell.RentACar.business.abstracts.CarMaintenanceService;
 import com.turkcell.RentACar.business.abstracts.CarService;
 import com.turkcell.RentACar.business.abstracts.RentingService;
+import com.turkcell.RentACar.business.constants.Messages;
 import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenanceByIdDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenancesInCarDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.ListCarMaintenanceDto;
 import com.turkcell.RentACar.business.dtos.renting.RentingByCarIdDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarMaintenanceRequest;
+import com.turkcell.RentACar.business.requests.delete.DeleteCarMaintenanceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarMaintenanceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
@@ -57,32 +59,30 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 
 		response = idCorrection(response, result);
 		
-		return new SuccessDataResult<List<ListCarMaintenanceDto>>(response);   
+		return new SuccessDataResult<List<ListCarMaintenanceDto>>(response, Messages.CARMAINTENANCELISTED);   
 		
 		}
 
 	@Override    
 	public Result create(CreateCarMaintenanceRequest createCarMaintenanceRequest) throws BusinessException {  
 		
-		CarMaintenance carMaintenance = this.modelMapperService.forRequest().map(createCarMaintenanceRequest, CarMaintenance.class);   
-
-		checkIfCarInMaintenance(carMaintenance.getCarMaintenanceId());
+		this.carService.checkIfExistByCarId(createCarMaintenanceRequest.getCarId());
+		this.rentingService.checkIfCarNotInRent(createCarMaintenanceRequest.getCarId());
+	
 		
-		checkIfRentingExists(carMaintenance);
+		CarMaintenance carMaintenance = this.modelMapperService.forRequest().map(createCarMaintenanceRequest, CarMaintenance.class);   
+		checkIfCarInMaintenance(carMaintenance.getCarMaintenanceId());
 		
 		carMaintenance.setCarMaintenanceId(0);
 		
-		checkIfCarExists(carMaintenance.getCarMaintenanceCar().getCarId());
-		
-		this.carService.checkIfExistByCarId(createCarMaintenanceRequest.getCarId());
-		this.rentingService.checkIfCarNotInRent(createCarMaintenanceRequest.getCarId());
-		
+		checkIfRentingExists(carMaintenance);
+		checkIfCarExists(carMaintenance.getCarMaintenanceCar().getCarId());		
 		checkIfCarNotInMaintenance(createCarMaintenanceRequest.getCarId());
 		
 		                
 		this.carMaintenanceDao.save(carMaintenance);         
 		
-		return new SuccessResult("eklendi.");    
+		return new SuccessResult(Messages.CARMAINTENANCEADDED);    
 		
 	}
 
@@ -94,36 +94,21 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		checkIfCarInMaintenance(updateCarMaintenanceRequest.getCarId()); 
 		
 		CarMaintenance carMaintenance = this.modelMapperService.forRequest().map(updateCarMaintenanceRequest, CarMaintenance.class);
-		carMaintenance.setCarMaintenanceId(this.carMaintenanceDao.getByReturnDateAndCarMaintenanceCar_CarId(null, updateCarMaintenanceRequest.getCarId()).getCarMaintenanceId());
+		carMaintenance.setCarMaintenanceId(this.carMaintenanceDao.getByReturnDateAndCarMaintenanceCar_CarId(updateCarMaintenanceRequest.getReturnDate(), updateCarMaintenanceRequest.getCarId()).getCarMaintenanceId());
+		
+		
 		this.carMaintenanceDao.save(carMaintenance);
 		
-		return new SuccessResult("CarMaintenance.Updated");
+		return new SuccessResult(Messages.CARMAINTENANCEUPDATED);
+	
 	}
 
-	@Override
-	public Result delete(int carMaintenanceId) {
-		if (!checkCarMaintenanceId(carMaintenanceId).isSuccess()) {
-			return new ErrorResult(checkCarMaintenanceId(carMaintenanceId).getMessage());
-		}
-		
-		this.carMaintenanceDao.deleteById(carMaintenanceId);
-		return new SuccessResult("Data deleted.");
-	}
+	public Result delete(DeleteCarMaintenanceRequest deleteCarMaintenanceRequest) {
 
-	
-	
-	private Result checkCarMaintenanceId(int carMaintenanceId) {
-		if (!this.carMaintenanceDao.existsById(carMaintenanceId)) {
-			return new ErrorResult("This maintenance id is undefined!");
-		}
-		return new SuccessResult();
-	}
-	
-	private Result checkIfCarMaintenanceListEmpty(List<CarMaintenance> carMaintenances) {
-		if (carMaintenances.isEmpty()) {
-			return new ErrorDataResult<List<CarMaintenance>>("There is no car in maintenance exists in the list!");
-		}
-		return new SuccessResult();
+		checkCarMaintenanceId(deleteCarMaintenanceRequest.getCarMaintenanceId());
+
+		this.carMaintenanceDao.deleteById(deleteCarMaintenanceRequest.getCarMaintenanceId());
+		return new SuccessResult(Messages.CARMAINTENANCEDELETED);
 	}
 
 	@Override
@@ -133,10 +118,10 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		
 		List<CarMaintenancesInCarDto> response = result.stream().map(carMaintenance->this.modelMapperService.forDto().map(carMaintenance, CarMaintenancesInCarDto.class)).collect(Collectors.toList());
 		
-		return new SuccessDataResult <List<CarMaintenancesInCarDto>>(response);
+		return new SuccessDataResult <List<CarMaintenancesInCarDto>>(response, Messages.CARMAINTENANCEFOUNDBYCARID);
 	
 	}
-
+	
 	@Override
 	public DataResult<CarMaintenanceByIdDto> getById(int carMaintenanceId) throws BusinessException {
 		
@@ -146,7 +131,28 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		
 		CarMaintenanceByIdDto response = this.modelMapperService.forDto().map(result, CarMaintenanceByIdDto.class);
 		
-		return new SuccessDataResult<CarMaintenanceByIdDto> (response);
+		return new SuccessDataResult<CarMaintenanceByIdDto> (response, Messages.CARMAINTENANCEFOUND);
+	
+	}
+	
+	private Result checkCarMaintenanceId(int carMaintenanceId) {
+		
+		if (!this.carMaintenanceDao.existsById(carMaintenanceId)) {
+			
+			return new ErrorResult(Messages.CARMAINTENANCENOTFOUND);
+		}
+		
+		return new SuccessResult();
+		
+	}
+	
+	private Result checkIfCarMaintenanceListEmpty(List<CarMaintenance> carMaintenances) {
+		
+		if (carMaintenances.isEmpty()) {
+			return new ErrorDataResult<List<CarMaintenance>>(Messages.CARMAINTENANCENOTFOUNDATLİST);
+		}
+		
+		return new SuccessResult();
 	
 	}
 
@@ -158,7 +164,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		
 		}
 		
-		throw new BusinessException("The car maintenance id you wrote is not exist.");
+		throw new BusinessException(Messages.CARMAINTENANCENOTFOUND);
 	}
 	
 	
@@ -167,7 +173,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		
 		if(this.carMaintenanceDao.getByReturnDateAndCarMaintenanceCar_CarId(null, carId) != null) {
 			
-			throw new BusinessException("The car in maintenance.");
+			throw new BusinessException(Messages.CARINMAINTENANCE);
 		
 		}
 		
@@ -176,7 +182,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 	
 	private boolean checkIfCarInMaintenance(int carId)throws BusinessException {
 		if(this.carMaintenanceDao.getByReturnDateAndCarMaintenanceCar_CarId(null, carId) == null) {
-			throw new BusinessException("The car is not in maintenance.");
+			throw new BusinessException(Messages.CARNOTINMAINTENANCE);
 		}
 		return true;	
 	}
@@ -192,7 +198,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		for (RentingByCarIdDto renting : result.getData()) {
 
 			if (renting.getReturnDate() == null) {
-				throw new BusinessException("The car cannot be sent for maintenance because it is on rent.");
+				throw new BusinessException(Messages.CARNOTSENDMAINTENANCEFORRENTED);
 			}
 
 		}
@@ -204,7 +210,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		DataResult<CarByIdDto> result = this.carService.getById(id);
 		
 		if (!result.isSuccess()) {
-			throw new BusinessException("The car with this id does not exist..");
+			throw new BusinessException(Messages.CARNOTFOUND);
 		}
 		return true;
 
@@ -222,6 +228,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 		return response;
 
 	}
+
+	
 }
 	
 

@@ -22,10 +22,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class CorporateCustomer extends Customer{
 	
-	/*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "corporateCustomerId")
-    private int corporateCustomerId;*/
 	
 	@Column(name = "company_name")
 	private String companyName;

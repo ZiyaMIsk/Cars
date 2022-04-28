@@ -15,7 +15,7 @@ public interface IndividualCustomerService {
 	
 	Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) throws BusinessException;
 	
-	Result update(int id, UpdateIndividualCustomerRequest updateIndividualCustomerRequest);
+	Result update(int id, UpdateIndividualCustomerRequest updateIndividualCustomerRequest) throws BusinessException;
 	
 	Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest);
 	

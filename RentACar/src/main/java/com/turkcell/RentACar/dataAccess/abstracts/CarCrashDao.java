@@ -10,7 +10,7 @@ import com.turkcell.RentACar.entities.CarCrush;
 @Repository
 public interface CarCrashDao extends JpaRepository <CarCrush, Integer> {
 
-	public CarCrush getByCarAccidentId (int carAccidentId);
+	public CarCrush getByCarCrushId (int carCrushId);
 	public List<CarCrush> getByCar_CarId (int carId);
 
 }

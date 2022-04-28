@@ -19,6 +19,7 @@ import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenanceByIdDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenancesInCarDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.ListCarMaintenanceDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarMaintenanceRequest;
+import com.turkcell.RentACar.business.requests.delete.DeleteCarMaintenanceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarMaintenanceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
@@ -51,8 +52,8 @@ public class CarMaintenancesController {
 	}
 	
 	@DeleteMapping("/delete")
-    public Result delete(@RequestParam("carMaintenanceId") int carMaintenanceId) throws BusinessException {
-		return this.carMaintenanceService.delete(carMaintenanceId);
+    public Result delete(@RequestBody  @Valid DeleteCarMaintenanceRequest deleteCarMaintenanceRequest) throws BusinessException {
+		return this.carMaintenanceService.delete(deleteCarMaintenanceRequest);
     }
 	
 	@GetMapping("/getCarMaintenanceById")

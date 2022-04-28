@@ -11,5 +11,7 @@ import com.turkcell.RentACar.entities.Payment;
 public interface PaymentDao extends JpaRepository<Payment, Integer> {
 
 	public Payment getByPaymentId(int paymentId);
+
+	Payment getAllByRenting_RentingId(int rentingId);
 	
 }

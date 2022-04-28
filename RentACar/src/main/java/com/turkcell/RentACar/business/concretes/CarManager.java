@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.turkcell.RentACar.business.abstracts.BrandService;
 import com.turkcell.RentACar.business.abstracts.CarService;
 import com.turkcell.RentACar.business.abstracts.ColorService;
+import com.turkcell.RentACar.business.constants.Messages;
 import com.turkcell.RentACar.business.dtos.brand.BrandDto;
 import com.turkcell.RentACar.business.dtos.car.CarByIdDto;
 import com.turkcell.RentACar.business.dtos.car.ListCarDto;
@@ -48,39 +49,43 @@ public class CarManager implements CarService {
 		
 		List<Car> cars = this.carDao.findAll();
 		
-		if (!checkIfCarListEmpty(cars).isSuccess()) {
-			return new ErrorDataResult<List<ListCarDto>>(checkIfCarListEmpty(cars).getMessage());
-		
-		}
-		
 		List<ListCarDto> listCarDto = cars.stream().map(car -> this.modelMapperService.forDto().map(car, ListCarDto.class)).collect(Collectors.toList());
 		
-		return new SuccessDataResult<List<ListCarDto>>(listCarDto, "Data listed");
+		return new SuccessDataResult<List<ListCarDto>>(listCarDto, Messages.CARLISTED);
 	
 	}
 	
 	@Override
 	public Result create(CreateCarRequest createCarRequest) throws BusinessException {
+
 		Car car = this.modelMapperService.forRequest().map(createCarRequest, Car.class);
 		
 		checkCarName(car.getCarName());
 		checkIfBrandExists(car.getBrand().getBrandId());
 		checkIfColorExists(car.getColor().getColorId());
+		
+		
 		this.carDao.save(car);
 		
-		return new SuccessDataResult<CreateCarRequest>(createCarRequest, "Data added : " + car.getCarName());
+		return new SuccessDataResult<CreateCarRequest>(createCarRequest, Messages.CARADDED);
 	}
 	
 	@Override
 	public Result update(UpdateCarRequest updateCarRequest) throws BusinessException {
 
-		Car car = this.modelMapperService.forRequest().map(updateCarRequest, Car.class);
-		
+		Car car = this.carDao.getById(updateCarRequest.getCarId());
+	
+		Car newCar = this.modelMapperService.forRequest().map(updateCarRequest, Car.class);
+
 		checkCarId(updateCarRequest.getCarId());
 		checkCarName(updateCarRequest.getCarName());
 		checkIfBrandExists(car.getBrand().getBrandId());		
 		checkIfColorExists(car.getColor().getColorId());
 		
+				
+		newCar.setCarMaintenanceStatus(car.isCarMaintenanceStatus());
+		newCar.setRentingStatus(car.isRentingStatus());
+		newCar.setKilometerValue(car.getKilometerValue());
 		
 		this.carDao.save(car);
 		return new SuccessDataResult<UpdateCarRequest>(updateCarRequest, "Data updated to: " + car.getCarName());
@@ -151,13 +156,6 @@ public class CarManager implements CarService {
 				.map(car -> this.modelMapperService.forDto().map(car, ListCarDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<ListCarDto>>(listCarDto);
 	}
-	
-	private Result checkIfCarListEmpty(List<Car> cars) {
-		if (cars.isEmpty()) {
-			return new ErrorDataResult<List<Car>>("There is no car exists in the list!");
-		}
-		return new SuccessResult();
-	}
 
 	@Override
 	public boolean checkIfExistByCarId(int carId) throws BusinessException {
@@ -197,6 +195,18 @@ public class CarManager implements CarService {
 
 	@Override
 	public void toSetCarKilometerValue(int carId, long kilometerValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateRentingStatus(int carId, boolean status) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCarMaintenanceStatus(int carId, boolean status) {
 		// TODO Auto-generated method stub
 		
 	}

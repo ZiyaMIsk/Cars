@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcell.RentACar.business.abstracts.PaymentService;
 import com.turkcell.RentACar.business.requests.create.CreatePaymentRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -25,7 +26,8 @@ public class PaymentsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody @Valid CreatePaymentRequest createPaymentRequest) {
+	public Result add(@RequestBody @Valid CreatePaymentRequest createPaymentRequest) throws BusinessException {
 		return this.paymentService.add(createPaymentRequest);
 	}
+	
 }

@@ -41,7 +41,7 @@ public class CorporateCustomersController {
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestParam("corporateCustomerId") int id, @RequestBody @Valid UpdateCorporateCustomerRequest updateCorporateCustomerRequest){
+	public Result update(@RequestParam("corporateCustomerId") int id, @RequestBody @Valid UpdateCorporateCustomerRequest updateCorporateCustomerRequest) throws BusinessException{
 		return this.corporateCustomerService.update(updateCorporateCustomerRequest);
 	}
 	

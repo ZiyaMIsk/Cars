@@ -10,6 +10,7 @@ import com.turkcell.RentACar.business.requests.update.UpdateInvoiceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
+import com.turkcell.RentACar.entities.Renting;
 
 public interface InvoiceService {
 
@@ -26,4 +27,8 @@ public interface InvoiceService {
 	DataResult<List<ListInvoiceDto>> getByDateOfBetween (LocalDate startDate, LocalDate finishDate);
 	
 	DataResult<List<ListInvoiceDto>> getInvoiceByCustomer(int id);
+
+	boolean checkRentCarExists(int invoiceId);
+
+	Renting returnRenting(int rentingId);
 }

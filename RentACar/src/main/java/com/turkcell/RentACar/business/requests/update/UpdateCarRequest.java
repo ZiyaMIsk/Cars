@@ -27,7 +27,6 @@ public class UpdateCarRequest {
 	private double kilometerValue;
 	
 	@NotNull
-	
 	private int brandId;
 	
 	@NotNull

@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.turkcell.RentACar.business.abstracts.UserService;
+import com.turkcell.RentACar.business.constants.Messages;
 import com.turkcell.RentACar.business.dtos.user.UserDto;
 import com.turkcell.RentACar.business.requests.update.UpdateUserRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.mapping.abstracts.ModelMapperService;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
-import com.turkcell.RentACar.core.utilites.results.ErrorDataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 import com.turkcell.RentACar.core.utilites.results.SuccessDataResult;
 import com.turkcell.RentACar.core.utilites.results.SuccessResult;
@@ -32,14 +32,9 @@ public class UserManager implements UserService {
 	@Override
 	public DataResult<UserDto> getById(int userId) {
 		User result = this.userDao.getByUserId(userId);
-		
-		if (result != null) {
-			
-			UserDto response = this.modelMapperService.forDto().map(result, UserDto.class);
+		UserDto response = this.modelMapperService.forDto().map(result, UserDto.class);
 
-			return new SuccessDataResult<UserDto>(response, "Success");
-		}
-		return new ErrorDataResult<UserDto>("Cannot find an user with this Id.");
+		return new SuccessDataResult<UserDto>(response, Messages.USERFOUND);
 	}
 
 	@Override
@@ -51,7 +46,7 @@ public class UserManager implements UserService {
 		updateOperation(user, updateUserRequest);
 		this.userDao.save(user);
 
-		return new SuccessResult("User.Updated");
+		return new SuccessResult(Messages.USERUPDATED);
 	}
 
 	private void updateOperation(User user, UpdateUserRequest updateUserRequest) {

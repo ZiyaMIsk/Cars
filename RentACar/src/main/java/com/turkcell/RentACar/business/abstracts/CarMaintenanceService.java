@@ -6,6 +6,7 @@ import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenanceByIdDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.CarMaintenancesInCarDto;
 import com.turkcell.RentACar.business.dtos.carMaintenance.ListCarMaintenanceDto;
 import com.turkcell.RentACar.business.requests.create.CreateCarMaintenanceRequest;
+import com.turkcell.RentACar.business.requests.delete.DeleteCarMaintenanceRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateCarMaintenanceRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
@@ -19,7 +20,7 @@ public interface CarMaintenanceService {
 	
 	Result update(int id, UpdateCarMaintenanceRequest updateCarMaintenanceRequest) throws BusinessException;
 	
-	Result delete(int carMaintenanceId);
+	Result delete(DeleteCarMaintenanceRequest deleteCarMaintenanceRequest);
 	
 	DataResult<List<CarMaintenancesInCarDto>> getCarMaintenancesByCarId(int carId);
 	

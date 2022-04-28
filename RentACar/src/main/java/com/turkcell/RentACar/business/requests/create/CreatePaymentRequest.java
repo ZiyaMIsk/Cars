@@ -19,12 +19,9 @@ public class CreatePaymentRequest {
 	private int orderedAdditionalServiceId;
 	
 	@NotNull
-	private String cardOwnerName;
+	private CreateCreditCardRequest createCreditCardRequest;
+
+	public boolean isRememberMe;
 	
-	@NotNull
-	private String cardNumber;
-	
-	@NotNull
-	private int cardCvvNumber;
 	
 }

@@ -9,7 +9,7 @@ import com.turkcell.RentACar.entities.IndividualCustomer;
 @Repository
 public interface IndividualCustomerDao extends JpaRepository<IndividualCustomer, Integer>{
 	
-	IndividualCustomer getByIndividualCustomerId(int id);
+	
 	
 	IndividualCustomer findByEmail(String email);
 	

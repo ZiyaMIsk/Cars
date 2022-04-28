@@ -14,13 +14,13 @@ public interface ColorService {
 	
 	DataResult<List<ListColorDto>> listAll();
 
-	Result create(CreateColorRequest createColorRequest);
+	Result create(CreateColorRequest createColorRequest) throws BusinessException;
 	
-	Result delete(int colorId);
+	Result delete(int colorId) throws BusinessException;
 	
-	Result update(int colorId, UpdateColorRequest updateColorRequest);
+	Result update(int colorId, UpdateColorRequest updateColorRequest) throws BusinessException;
 	
-	DataResult<ColorDto> getById(int colorId);
+	DataResult<ColorDto> getById(int colorId) throws BusinessException;
 	
 	boolean checkIfExistByColorId(int colorId) throws BusinessException;
 

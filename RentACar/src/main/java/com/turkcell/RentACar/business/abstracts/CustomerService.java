@@ -6,6 +6,6 @@ import com.turkcell.RentACar.core.utilites.results.DataResult;
 
 public interface CustomerService {
 	
-	DataResult<CustomerDto> getById(int id) throws BusinessException;
+	DataResult<CustomerDto> getByCustomerId(int id) throws BusinessException;
 
 }

@@ -34,5 +34,9 @@ public interface CarService {
 	public Car getByIdForOtherServices(int carId);
 	
 	void toSetCarKilometerValue(int carId, long kilometerValue);
+
+	void updateRentingStatus(int carId, boolean status);
+	
+	void updateCarMaintenanceStatus(int carId, boolean status);
 	
 }

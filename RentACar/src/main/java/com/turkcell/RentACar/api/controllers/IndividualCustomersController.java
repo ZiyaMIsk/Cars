@@ -41,7 +41,7 @@ public class IndividualCustomersController {
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestParam("individualCustomerId") int id, @RequestBody @Valid UpdateIndividualCustomerRequest updateIndividualCustomerRequest){
+	public Result update(@RequestParam("individualCustomerId") int id, @RequestBody @Valid UpdateIndividualCustomerRequest updateIndividualCustomerRequest) throws BusinessException{
 		return this.individualCustomerService.update(id, updateIndividualCustomerRequest);
 	}
 	

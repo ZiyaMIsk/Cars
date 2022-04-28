@@ -14,7 +14,7 @@ public interface CorporateCustomerService {
 	
 	Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) throws BusinessException;
 	
-	Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest);
+	Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest) throws BusinessException;
 	
 	Result delete(int id) throws BusinessException;
 	

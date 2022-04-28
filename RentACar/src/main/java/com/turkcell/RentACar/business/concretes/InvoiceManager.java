@@ -43,11 +43,18 @@ public class InvoiceManager implements InvoiceService {
 	private OrderedAdditionalServiceService orderedAdditionalServiceService;
 	private AdditionalServiceService additionalServiceService;
 	
+
 	@Autowired
-	public InvoiceManager(InvoiceDao invoiceDao, ModelMapperService modelMapperService, CustomerService customerService,RentingService rentingService, OrderedAdditionalServiceService orderedAdditionalServiceService, AdditionalServiceService additionalServiceService) {
+	public InvoiceManager(InvoiceDao invoiceDao, ModelMapperService modelMapperService, CustomerService customerService,RentingService rentingService,
+			OrderedAdditionalServiceService orderedAdditionalServiceService, AdditionalServiceService additionalServiceService) {
+		
 		this.invoiceDao = invoiceDao;
 		this.modelMapperService = modelMapperService;
 		this.customerService = customerService;
+		this.rentingService = rentingService;
+		this.orderedAdditionalServiceService = orderedAdditionalServiceService;
+		this.additionalServiceService = additionalServiceService;
+	
 	}
 
 	@Override
@@ -55,7 +62,7 @@ public class InvoiceManager implements InvoiceService {
 	
 		Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
 		
-		CustomerDto customer = this.customerService.getById(createInvoiceRequest.getCustomerId()).getData();
+		CustomerDto customer = this.customerService.getByCustomerId(createInvoiceRequest.getCustomerId()).getData();
 		
 		Customer c = this.modelMapperService.forDto().map(customer, Customer.class);
 		
@@ -145,7 +152,7 @@ public class InvoiceManager implements InvoiceService {
 
 	private void idCorrectionForAdd(Invoice invoice, CreateInvoiceRequest createInvoiceRequest) throws BusinessException {
 
-		CustomerDto getCustomerByIdDto = this.customerService.getById(invoice.getCustomer().getUserId()).getData();
+		CustomerDto getCustomerByIdDto = this.customerService.getByCustomerId(invoice.getCustomer().getUserId()).getData();
 		Customer customer = this.modelMapperService.forDto().map(getCustomerByIdDto, Customer.class);
 
 		RentingByIdDto rentingByIdDto = this.rentingService.getRentingById(invoice.getRenting().getRentingId()).getData();
@@ -185,7 +192,7 @@ public class InvoiceManager implements InvoiceService {
 	
 	private void checkIfCustomerExists(int customerId) throws BusinessException {
 		
-		if(this.customerService.getById(customerId)==null) {
+		if(this.customerService.getByCustomerId(customerId)==null) {
 			throw new BusinessException("Cannot find a customer with this Id.");
 		}
 
@@ -193,7 +200,7 @@ public class InvoiceManager implements InvoiceService {
 
 	private void checkIfRentalCarExists(int rentalCarId) throws BusinessException {
 		
-		if(this.customerService.getById(rentalCarId)==null) {
+		if(this.customerService.getByCustomerId(rentalCarId)==null) {
 			throw new BusinessException("Cannot find a rentalCar with this Id.");
 		}
 	}
@@ -248,6 +255,18 @@ public class InvoiceManager implements InvoiceService {
 		double additionalServicePrice = additionalServiceDailyPrice*numberDays;
 		
 		return additionalServicePrice+rentPrice;
+	}
+
+	@Override
+	public boolean checkRentCarExists(int invoiceId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Renting returnRenting(int rentingId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
