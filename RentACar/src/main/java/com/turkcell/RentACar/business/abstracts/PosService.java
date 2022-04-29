@@ -1,11 +1,9 @@
 package com.turkcell.RentACar.business.abstracts;
 
-import com.turkcell.RentACar.business.requests.create.CreatePaymentRequest;
+import com.turkcell.RentACar.business.requests.create.CreateCreditCardRequest;
 
 public interface PosService {
-	
-	public boolean payment(CreatePaymentRequest createPaymentRequest);
-	
-	
+
+	public boolean payment(CreateCreditCardRequest createCreditCardRequest, double paymentAmount);	
 
 }

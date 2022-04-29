@@ -17,4 +17,7 @@ public class ListOrderedAdditionalServiceDto {
 	
 	private String additionalServiceName;
 
+	public int additionalServiceDailyPrice;
+
+	public int orderedAdditionalServiceAmount;
 }

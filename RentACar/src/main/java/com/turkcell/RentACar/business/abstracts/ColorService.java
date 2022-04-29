@@ -9,6 +9,7 @@ import com.turkcell.RentACar.business.requests.update.UpdateColorRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
+import com.turkcell.RentACar.entities.Color;
 
 public interface ColorService {
 	
@@ -23,5 +24,7 @@ public interface ColorService {
 	DataResult<ColorDto> getById(int colorId) throws BusinessException;
 	
 	boolean checkIfExistByColorId(int colorId) throws BusinessException;
+	
+	Color getColorById(int colorId) throws BusinessException;
 
 }

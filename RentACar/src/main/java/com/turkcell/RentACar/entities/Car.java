@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="cars")
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "Lazy"})
 public class Car {
 	
 	@Id
@@ -59,17 +62,11 @@ public class Car {
 	@OneToMany(mappedBy = "rentedCar", fetch = FetchType.LAZY)
     private List<Renting> rentings;
 
-	@Column(name="is_active")
-    private boolean isActive = true;
+
+    //private boolean isActive = true;
 	
 	@OneToMany(mappedBy = "car")
 	private List<CarCrush> carAccidents;
 
-	@Column( name = "car_maintenance_status")
-	public boolean isCarMaintenanceStatus;
-
-	@Column( name = "renting_status")
-	public boolean isRentingStatus;
-	
 	
 }

@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import com.turkcell.RentACar.business.abstracts.CreditCardService;
 import com.turkcell.RentACar.business.abstracts.InvoiceService;
 import com.turkcell.RentACar.business.abstracts.PaymentService;
+import com.turkcell.RentACar.business.abstracts.PosService;
+import com.turkcell.RentACar.business.adapter.FakeIsbankPosServiceAdapter;
 import com.turkcell.RentACar.business.constants.Messages;
 import com.turkcell.RentACar.business.dtos.payment.ListPaymentDto;
 import com.turkcell.RentACar.business.dtos.payment.PaymentDto;
+import com.turkcell.RentACar.business.requests.create.CreateCreditCardRequest;
 import com.turkcell.RentACar.business.requests.create.CreatePaymentRequest;
 import com.turkcell.RentACar.business.requests.delete.DeletePaymentRequest;
 import com.turkcell.RentACar.business.requests.update.UpdatePaymentRequest;
@@ -45,19 +48,20 @@ public class PaymentManager implements PaymentService{
 	@Override
 	public Result add(CreatePaymentRequest createPaymentRequest) throws BusinessException {
 		
-		this.invoiceService.checkRentCarExists(createPaymentRequest.getInvoiceId());
+		this.invoiceService.checkIfInvoiceExists(createPaymentRequest.getInvoiceId());
 		
 		checkRememberMe(createPaymentRequest);
-		
+		makePayment(createPaymentRequest.getCreateCreditCardRequest(), createPaymentRequest.getPaymentAmount());
 			
 		Payment payment = this.modelMapperService.forRequest().map(createPaymentRequest, Payment.class);
-		payment.setTotalPayment(calculatorTotalPrice(createPaymentRequest.getInvoiceId()));
+		
 		payment.setPaymentId(0);
 		
 		this.paymentDao.save(payment);
 
 		return new SuccessResult(Messages.PAYMENTADDED);
 	}
+
 
 	@Override
 	public Result delete(DeletePaymentRequest deletePaymentRequest) throws BusinessException {
@@ -101,11 +105,11 @@ public class PaymentManager implements PaymentService{
 	}
 
 	@Override
-	public DataResult<ListPaymentDto> getByInvoiceId(int rentingId) {
+	public DataResult<ListPaymentDto> getByInvoiceId(int invoiceId) throws BusinessException {
 		
-		this.invoiceService.checkRentCarExists(rentingId);
+		this.invoiceService.checkIfInvoiceExists(invoiceId);
 
-		var result = this.paymentDao.getAllByRenting_RentingId(rentingId);
+		var result = this.paymentDao.getAllByRenting_RentingId(invoiceId);
 		ListPaymentDto response = this.modelMapperService.forDto().map(result, ListPaymentDto.class);
 		
 		return new SuccessDataResult<ListPaymentDto>(response , Messages.PAYMENTSLISTED);
@@ -118,13 +122,6 @@ public class PaymentManager implements PaymentService{
 		}
 		throw new BusinessException(Messages.PAYMENTNOTFOUND);
 	}
-		
-	public double calculatorTotalPrice(int rentalId) {
-
-		var returnedRental = this.invoiceService.returnRenting(rentalId);
-
-		return returnedRental.getTotalPrice();
-	}
 
 	public boolean checkRememberMe(CreatePaymentRequest createPaymentRequest) throws BusinessException {
 		
@@ -135,5 +132,13 @@ public class PaymentManager implements PaymentService{
 	}
 	
 
+	private void makePayment(CreateCreditCardRequest createCreditCardRequest, double paymentAmount) throws BusinessException {
+		PosService posService = new FakeIsbankPosServiceAdapter();
+		
+		if(!posService.payment(createCreditCardRequest, paymentAmount)) {
+			
+			throw new BusinessException(Messages.PAYMENTCARDFAILED);
+		}	
+	}
 }
 

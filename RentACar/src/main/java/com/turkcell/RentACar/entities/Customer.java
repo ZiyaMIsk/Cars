@@ -27,8 +27,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Customer extends User{
 		
-	@Column(name = "customer_id",insertable = false, updatable = false)
-	private int customerId;
+	
+		@Column(name = "customer_id",insertable = false, updatable = false)
+		private int customerId;
 		
 		@OneToMany(mappedBy = "customerRenting")
 	    @JsonIgnore

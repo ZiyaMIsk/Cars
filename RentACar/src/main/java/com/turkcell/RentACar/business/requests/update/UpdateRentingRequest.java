@@ -25,6 +25,11 @@ public class UpdateRentingRequest {
 	private int returnCityId;
 	
 	@NotNull
-	private double returnKilometer;	
+	private double returnKilometer;
+
+	public LocalDate getRentDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 
 }

@@ -1,8 +1,6 @@
 package com.turkcell.RentACar.business.requests.create;
 
-import java.util.List;
-
-import com.turkcell.RentACar.business.dtos.color.ColorIdDto;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +16,8 @@ public class CreateCarRequest {
 	private int modelYear;
 	private String description;
 	private double kilometerValue;
+	@NotNull
 	private int brandId;
-	private List<ColorIdDto> colorIds;
+	@NotNull
+	private int colorId;
 }

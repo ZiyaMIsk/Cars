@@ -38,5 +38,7 @@ public interface CarService {
 	void updateRentingStatus(int carId, boolean status);
 	
 	void updateCarMaintenanceStatus(int carId, boolean status);
+
+	void setCarKilometer(int carId, double endKilometer);
 	
 }

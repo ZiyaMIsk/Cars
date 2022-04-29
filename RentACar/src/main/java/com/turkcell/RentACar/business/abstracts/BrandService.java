@@ -9,6 +9,7 @@ import com.turkcell.RentACar.business.requests.update.UpdateBrandRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
+import com.turkcell.RentACar.entities.Brand;
 
 public interface BrandService {
 
@@ -23,5 +24,7 @@ public interface BrandService {
 	Result delete(int brandId);
 	
 	boolean checkIfExistByBrandId(int brandId) throws BusinessException;
+	
+	Brand getBrandById(int brandId) throws BusinessException;
 	
 }

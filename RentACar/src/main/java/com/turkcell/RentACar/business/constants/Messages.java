@@ -41,6 +41,8 @@ public class Messages {
 	public static final String CARMAINTENANCENOTFOUNDATLİST = "car.maintenance.not.found.at.list";
 		
 	public static final String CARADDED = "car.added";
+	public static final String CARISRENTEDNOW = "car.is.rented.now";
+	public static final String CARNOTRENTED = "car.not.rented";
 	public static final String CARUPDATED = "car.updated";
 	public static final String CARDELETED = "car.deleted";
 	public static final String CARLISTED = "cars.listed";
@@ -54,6 +56,8 @@ public class Messages {
 	public static final String CARNOTFOUNDBYBRANDID = "car.not.found.by.brand.id";
 	public static final String CARNOTSENDMAINTENANCEFORRENTED = "car.not.send.maintenance.for.rented";
 
+	public static final String ENDKILOMETERVALUENOTTRUE = "end.kilometer.value.not.correct";
+	
 	public static final String CITYLISTED = "cities.listed";
 
 	public static final String COLORADDED = "color.added";
@@ -98,8 +102,11 @@ public class Messages {
 	public static final String INVOICEUPDATED = "invoice.updated";
 	public static final String INVOICEDELETED = "invoice.deleted";
 	public static final String INVOICELISTED = "invoices.listed";
+	public static final String INVOICESLISTEDBYDATES = "invoices.listed.by.dates";
 	public static final String INVOICEBYCUSTOMERLISTED = "customers.invoices.listed";
 	public static final String INVOICEFOUND = "invoice.found";
+	public static final String INVOICEFOUNDBYCUSTOMERID = "invoice.found.by.customer.id";
+	public static final String INVOICEFOUNDBYRENTINGID = "invoice.found.by.renting.id";
 	public static final String INVOICENOTFOUND = "invoice.not.found";
 	public static final String INVOICENUMBERAlREADYEXISTS = "invoice.exists";
 
@@ -123,19 +130,23 @@ public class Messages {
 	public static final String PAYMENTCARDNOTSAVED = "payment.card.not.saved";
 	public static final String PAYMENTCARDFAILED = "payment.card.failed";
 	
-	public static final String RENTALADDED = "rental.added";
-	public static final String RENTALUPDATED = "rental.updated";
-	public static final String RENTALDELETED = "rental.deleted";
-	public static final String RENTALLISTED = "rentals.listed";
-	public static final String RENTALDATEERROR = "rental.date.error";
-	public static final String RENTALDATESUCCESSED = "rental.date.success";
-	public static final String RENTALFINDEXSCOREERROR = "rental.findex.score.error";
-	public static final String RENTALMAINTENANCEERROR = "rented.car.is.on.maintenance";
-	public static final String RENTALFOUND = "rental.found";
-	public static final String RENTALNOTFOUND = "rental.not.found";
+	public static final String RENTINGADDED = "rental.added";
+	public static final String RENTINGENDED = "rental.ended";
+	public static final String RENTINGALREADYENDED = "rental.already.ended";
+	public static final String RENTINGUPDATED = "rental.updated";
+	public static final String RENTINGDELETED = "rental.deleted";
+	public static final String RENTINGSLISTED = "rentals.listed";
+	public static final String RENTINGDATEERROR = "rental.date.error";
+	public static final String RENTINGDATESUCCESSED = "rental.date.success";
+	public static final String RENTINGFINDEXSCOREERROR = "rental.findex.score.error";
+	public static final String RENTINGMAINTENANCEERROR = "rented.car.is.on.maintenance";
+	public static final String RENTINGFOUND = "rental.found";
+	public static final String RENTINGFOUNDBYCARID = "rental.found.by.car.id";
+	public static final String RENTINGNOTFOUND = "rental.not.found";
 	public static final String INSUFFICIENTBALANCE = "rental.balance.insufficient";
 	public static final String SUFFICIENTBALANCE = "rental.balance.insufficient";
-	public static final String RENTALDATEISNULL = "rental.car.is.not.returned.yet";
+	public static final String RENTINGDATEISNULL = "rental.car.is.not.returned.yet";
+	public static final String NEWPAYMENTREQUİRED = "need.payment.required";
 
 	public static final String USERFOUND = "user.found";
 	public static final String USERUPDATED = "user.updated";

@@ -126,4 +126,16 @@ public class BrandManager implements BrandService {
 			return true;
 		}
 	}
+
+	@Override
+	public Brand getBrandById(int brandId) throws BusinessException {
+		isBrandExitsById(brandId);
+		return this.brandDao.getById(brandId);
+	}
+	
+	private void isBrandExitsById(int brandId) throws BusinessException {
+		if (!this.brandDao.existsById(brandId)) {
+			throw new BusinessException(Messages.BRANDNOTFOUND);
+		}
+	}
 }

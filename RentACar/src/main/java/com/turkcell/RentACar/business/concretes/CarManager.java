@@ -28,7 +28,9 @@ import com.turkcell.RentACar.core.utilites.results.Result;
 import com.turkcell.RentACar.core.utilites.results.SuccessDataResult;
 import com.turkcell.RentACar.core.utilites.results.SuccessResult;
 import com.turkcell.RentACar.dataAccess.abstracts.CarDao;
+import com.turkcell.RentACar.entities.Brand;
 import com.turkcell.RentACar.entities.Car;
+import com.turkcell.RentACar.entities.Color;
 
 @Service
 public class CarManager implements CarService {
@@ -57,13 +59,18 @@ public class CarManager implements CarService {
 	
 	@Override
 	public Result create(CreateCarRequest createCarRequest) throws BusinessException {
-
+		this.brandService.checkIfExistByBrandId(createCarRequest.getBrandId());
+		this.colorService.checkIfExistByColorId(createCarRequest.getColorId());
+		
+		checkCarName(createCarRequest.getCarName());
+		
+		Brand brand = this.brandService.getBrandById(createCarRequest.getBrandId());
+		Color color = this.colorService.getColorById(createCarRequest.getColorId());
+		
 		Car car = this.modelMapperService.forRequest().map(createCarRequest, Car.class);
-		
-		checkCarName(car.getCarName());
-		checkIfBrandExists(car.getBrand().getBrandId());
-		checkIfColorExists(car.getColor().getColorId());
-		
+		car.setCarId(0);
+		car.setBrand(brand);
+		car.setColor(color);
 		
 		this.carDao.save(car);
 		
@@ -83,8 +90,8 @@ public class CarManager implements CarService {
 		checkIfColorExists(car.getColor().getColorId());
 		
 				
-		newCar.setCarMaintenanceStatus(car.isCarMaintenanceStatus());
-		newCar.setRentingStatus(car.isRentingStatus());
+		/*newCar.setCarMaintenanceStatus(car.isCarMaintenanceStatus());
+		newCar.setRentingStatus(car.isRentingStatus());*/
 		newCar.setKilometerValue(car.getKilometerValue());
 		
 		this.carDao.save(car);
@@ -207,6 +214,12 @@ public class CarManager implements CarService {
 
 	@Override
 	public void updateCarMaintenanceStatus(int carId, boolean status) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCarKilometer(int carId, double endKilometer) {
 		// TODO Auto-generated method stub
 		
 	}

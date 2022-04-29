@@ -19,7 +19,7 @@ public interface PaymentService {
 	Result update(UpdatePaymentRequest updatePaymentRequest) throws BusinessException;
 
 	
-	DataResult<ListPaymentDto> getByInvoiceId(int rentingId);
+	DataResult<ListPaymentDto> getByInvoiceId(int rentingId) throws BusinessException;
 
 	boolean checkPaymentExists(int paymentId) throws BusinessException;
 	DataResult<PaymentDto> getByPaymentId(int paymentId) throws BusinessException;
