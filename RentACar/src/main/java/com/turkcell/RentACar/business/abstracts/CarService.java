@@ -41,4 +41,6 @@ public interface CarService {
 
 	void setCarKilometer(int carId, double endKilometer);
 	
+	void isExistsBrandByBrandId(int brandId) throws BusinessException;
+	
 }

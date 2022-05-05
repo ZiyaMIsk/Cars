@@ -1,5 +1,6 @@
 package com.turkcell.RentACar.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,15 +51,19 @@ public class CreditCardManager implements CreditCardService {
 
 	@Override
 	public Result create(CreateCreditCardRequest createCreditCardRequest) throws BusinessException {
-		
-		CreditCard creditCard = this.modelMapperService.forRequest().map(createCreditCardRequest, CreditCard.class);
-        this.creditCardDao.save(creditCard);
-        
-		checkCreditCardId(createCreditCardRequest.getCreditCardId());	
+
+        isCardExistsByCardNumber(createCreditCardRequest.getCardNumber());
+        checkIfExpirationYearIsValid(createCreditCardRequest.getExpirationYear());
+
+        CreditCard creditCard = this.modelMapperService.forRequest().map(createCreditCardRequest, CreditCard.class);
+
+        creditCard.setCreditCardId(0);
+        this.creditCardDao.save(creditCard);	
         
         return new SuccessResult(Messages.CREDITCARDADDED);   
     
 	}
+
 
 	@Override
 	public Result update(int id, UpdateCreditCardRequest updateCreditCardRequest) throws BusinessException {
@@ -120,12 +125,25 @@ public class CreditCardManager implements CreditCardService {
 		CreateCreditCardRequest createCreditCardRequest = new CreateCreditCardRequest();
 		createCreditCardRequest.setCardNumber(creditCard.getCardNumber());
 		createCreditCardRequest.setCardCvvNumber(creditCard.getCardCvvNumber());
-		createCreditCardRequest.setValidationDate(creditCard.getValidationDate());
+		createCreditCardRequest.setExpirationMonth(creditCard.getExpirationMonth());
+		createCreditCardRequest.setExpirationYear(creditCard.getExpirationYear());
 		createCreditCardRequest.setCardOwnerName(creditCard.getCardOwnerName());
 		
 		create(createCreditCardRequest);	
 		
 	}
 
+	private void isCardExistsByCardNumber(String cardNumber) throws BusinessException {
+		  if (this.creditCardDao.existsCreditCardByCardNumber(cardNumber)){
+	            throw new BusinessException(Messages.CREDITCARDEXİSTS);
+	        }
+		
+	}
 
+	private void checkIfExpirationYearIsValid(int year) throws BusinessException {
+        int currentYear = LocalDate.now().getYear();
+        if (year<currentYear){
+            throw new BusinessException(Messages.DATEFORMATNOTVALID);
+        }
+	}
 }

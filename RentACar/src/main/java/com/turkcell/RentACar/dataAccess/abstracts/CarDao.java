@@ -18,6 +18,6 @@ public interface CarDao extends JpaRepository<Car, Integer>{
 	
 	Car getByColor_ColorId(int colorId);
 	
-	Car getByBrand_BrandId(int brandId);
+	boolean existsByBrand_BrandId(int branId);
 	
 }

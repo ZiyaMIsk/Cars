@@ -9,22 +9,19 @@ import com.turkcell.RentACar.business.requests.update.UpdateBrandRequest;
 import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
-import com.turkcell.RentACar.entities.Brand;
 
 public interface BrandService {
 
-	DataResult<List<ListBrandDto>> listAll();
-	
-	Result create(CreateBrandRequest createBrandRequest);
-	
-	Result update(int id, UpdateBrandRequest updateBrandRequest);
-	
-	DataResult<BrandDto> getById(int brandId);
-	
-	Result delete(int brandId);
-	
-	boolean checkIfExistByBrandId(int brandId) throws BusinessException;
-	
-	Brand getBrandById(int brandId) throws BusinessException;
-	
+
+    DataResult<List<ListBrandDto>> getAll();
+
+    Result add(CreateBrandRequest createBrandRequest) throws BusinessException;
+
+    Result update(UpdateBrandRequest updateBrandRequest) throws BusinessException;
+
+    Result delete(int brandId) throws BusinessException;
+
+    DataResult<BrandDto> getById(int brandId) throws BusinessException;
+
+    void isExistsByBrandId(int brandId) throws BusinessException;
 }

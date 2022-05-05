@@ -14,11 +14,13 @@ public class Messages {
 	public static final String BRANDADDED = "brand.added";
 	public static final String BRANDUPDATED = "brand.updated";
 	public static final String BRANDDELETED = "brand.deleted";
+	public static final String BRANDNOTDELETED = "brand.not.deleted";
 	public static final String BRANDLISTED = "brands.listed";
 	public static final String BRANDNOTFOUNDATLIST = "brands.not.found.at.listed";
 	public static final String BRANDNAMENOTFOUND = "brand.not.exists.by.name";
 	public static final String BRANDFOUNDBYID = "brand.found.by.id";
 	public static final String BRANDNOTFOUND = "brand.not.found";
+	public static final String BRANDFOUND = "brand.found";
 
 	public static final String CARCRUSHADDED = "car.crush.added";
 	public static final String CARCRUSHDELETED = "car.crush.added";
@@ -79,6 +81,7 @@ public class Messages {
 	public static final String CORPORATECUSTOMERTAXNUMBEREXISTS = "customers.tax.number.already.exists";
 
 	public static final String CREDITCARDADDED = "credit.card.added";
+	public static final String CREDITCARDEXİSTS = "credit.card.already.exists";
 	public static final String CREDITCARDUPDATED = "credit.card.updated";
 	public static final String CREDITCARDDELETED = "credit.card.deleted";
 	public static final String CREDITCARDLISTED = "credit cards listed";

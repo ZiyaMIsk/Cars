@@ -19,6 +19,7 @@ import com.turkcell.RentACar.business.dtos.brand.BrandDto;
 import com.turkcell.RentACar.business.dtos.brand.ListBrandDto;
 import com.turkcell.RentACar.business.requests.create.CreateBrandRequest;
 import com.turkcell.RentACar.business.requests.update.UpdateBrandRequest;
+import com.turkcell.RentACar.core.exceptions.BusinessException;
 import com.turkcell.RentACar.core.utilites.results.DataResult;
 import com.turkcell.RentACar.core.utilites.results.Result;
 
@@ -26,35 +27,41 @@ import com.turkcell.RentACar.core.utilites.results.Result;
 @RequestMapping("/api/brands")
 public class BrandsController {
 	
-	private BrandService brandService;
 
-	@Autowired
-	public BrandsController(BrandService brandService) {
-		this.brandService = brandService;
-	}
-	
-	@GetMapping("/listAll")
-	public DataResult<List<ListBrandDto>> listAll(){
-		return this.brandService.listAll();
-	}
-	
-	@PostMapping("/create")
-	public Result create(@RequestBody CreateBrandRequest createBrandRequest){
-		return this.brandService.create(createBrandRequest);
-	}
-	
-	@PutMapping("/update")
-	public Result update(@RequestParam("brandId") int brandId, @RequestBody UpdateBrandRequest updateBrandRequest){
-		return this.brandService.update(brandId, updateBrandRequest);
-	}
-	
-	@DeleteMapping("/delete")
-    public Result delete(@RequestParam("brandId") int brandId){
-		return this.brandService.delete(brandId);
+    private BrandService brandService;
 
+    @Autowired
+    public BrandsController(BrandService brandService) {
+        this.brandService = brandService;
     }
-	@GetMapping("/getById")
-	public DataResult<BrandDto> getById(@RequestParam("brandId") @Valid int brandId){
-		return this.brandService.getById(brandId);
-	}	
+
+    @GetMapping("/getAll")
+    public DataResult<List<ListBrandDto>> getAll()
+    {
+        return this.brandService.getAll();
+    }
+
+    @PostMapping("/add")
+    public Result add(@RequestBody @Valid CreateBrandRequest createBrandRequest) throws BusinessException
+    {
+        return this.brandService.add(createBrandRequest);
+    }
+
+    @PutMapping("/update")
+    public Result update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest) throws BusinessException
+    {
+        return this.brandService.update(updateBrandRequest);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete(@RequestParam int brandId) throws BusinessException
+    {
+        return this.brandService.delete(brandId);
+    }
+
+    @GetMapping("getById")
+    public DataResult<BrandDto> getById(@RequestParam int brandId) throws BusinessException
+    {
+        return this.brandService.getById(brandId);
+    }
 }

@@ -15,10 +15,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="brands")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="brands")
 public class Brand {
 
 	@Id
@@ -26,9 +26,9 @@ public class Brand {
 	@Column(name="brand_id")
 	private int brandId;
 	
-	@Column(name="brand_name")
+	@Column(name="brand_name",unique = true)
 	private String brandName;
 
 	@OneToMany(mappedBy = "brand")
-	private List<Car> brandCars;
+	private List<Car> cars;
 }

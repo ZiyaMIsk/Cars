@@ -32,16 +32,18 @@ public class CreditCard {
 	@Column(name="card_owner_name")
 	private String cardOwnerName;
 	
-	@Column(name="card_number")
+	@Column(name="card_number", length = 16, unique = true)
 	private String cardNumber;
 	
 	@Column(name="crecard_cvv_number")
 	private int cardCvvNumber;
-	
-	@Column(name="credit_card_validation_date")
-	private LocalDate validationDate;
+    
+	@Column(name = "expiration_month")
+    private int expirationMonth;
 
-	
+    @Column(name = "expiration_year")
+    private int expirationYear;	
+    
 	@OneToMany(mappedBy = "creditCard")
 	private List<Payment> payments;
 	

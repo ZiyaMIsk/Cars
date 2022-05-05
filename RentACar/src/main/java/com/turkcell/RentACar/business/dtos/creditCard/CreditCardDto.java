@@ -1,7 +1,5 @@
 package com.turkcell.RentACar.business.dtos.creditCard;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,15 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCardDto {
 	
-	private int creditCardId;
-	
 	private String cardOwnerName;
 	
 	private String cardNumber;
 	
 	private int cardCvvNumber;
 	
-	private LocalDate validationDate;
+	private int expirationMonth;
+	 
+	private int expirationYear;
 	
-
 }

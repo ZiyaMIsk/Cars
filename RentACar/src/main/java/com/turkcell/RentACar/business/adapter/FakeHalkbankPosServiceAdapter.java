@@ -14,7 +14,7 @@ public class FakeHalkbankPosServiceAdapter implements PosService{
 		
 		FakeHalkBankManager fakeHalkBankManager=new FakeHalkBankManager();
 		
-		fakeHalkBankManager.doPayment(createCreditCardRequest.getCardCvvNumber(), createCreditCardRequest.getCardOwnerName(),createCreditCardRequest.getValidationDate(), createCreditCardRequest.getCardNumber());
+		fakeHalkBankManager.doPayment(createCreditCardRequest.getCardCvvNumber(), createCreditCardRequest.getCardOwnerName(),createCreditCardRequest.getExpirationMonth(), createCreditCardRequest.getExpirationYear(), createCreditCardRequest.getCardNumber());
 	
 		return true;
 	}

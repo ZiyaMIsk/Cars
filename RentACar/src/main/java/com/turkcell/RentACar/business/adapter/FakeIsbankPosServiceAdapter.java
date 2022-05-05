@@ -14,7 +14,7 @@ public class FakeIsbankPosServiceAdapter implements PosService{
 		
 		FakeIsBankManager fakeIsBankManager=new FakeIsBankManager();
 		
-		fakeIsBankManager.makePayment( createCreditCardRequest.getCardOwnerName(), createCreditCardRequest.getCardNumber(), createCreditCardRequest.getCardCvvNumber(), createCreditCardRequest.getValidationDate());
+		fakeIsBankManager.makePayment( createCreditCardRequest.getCardOwnerName(), createCreditCardRequest.getCardNumber(), createCreditCardRequest.getCardCvvNumber(), createCreditCardRequest.getExpirationMonth(), createCreditCardRequest.getExpirationYear());
 		
 		return true;
 		
